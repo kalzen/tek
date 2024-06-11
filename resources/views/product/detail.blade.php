@@ -118,10 +118,70 @@
 	</div>
 
 </div>
-{{$product->content}}
+{!!$product->content!!}
 
 </div>
 
     
 </div>
+<script>
+	function appendVideoPlayer() {
+  try {
+    const videoContainer = document.querySelector('.video');
+    if (!videoContainer) {
+      console.error('Video container not found');
+      return;
+    }
+
+    const videoData = JSON.parse(videoContainer.getAttribute('data-video-data'));
+    if (!videoData) {
+      console.error('Video data not found');
+      return;
+    }
+
+    const videoElement = document.createElement('video');
+    videoElement.classList.add('video-player');
+    videoElement.setAttribute('playsinline', '');
+    videoElement.setAttribute('loop', '');
+    videoElement.setAttribute('preload', 'auto');
+    videoElement.setAttribute('style', 'width: 100%; height: 100%;');
+
+    const desktopSource = document.createElement('source');
+    desktopSource.setAttribute('src', videoData.desktopSrc);
+    desktopSource.setAttribute('type', 'video/mp4');
+    videoElement.appendChild(desktopSource);
+
+    const mobileSource = document.createElement('source');
+    mobileSource.setAttribute('src', videoData.mobileSrc);
+    mobileSource.setAttribute('type', 'video/mp4');
+    videoElement.appendChild(mobileSource);
+
+    videoElement.autoplay = videoData.autoplay;
+    videoElement.muted = videoData.muted;
+    videoElement.loop = videoData.loop;
+    videoElement.controls = videoData.controls;
+
+    const captionElement = document.createElement('p');
+    captionElement.classList.add('hidden');
+    captionElement.textContent = videoData.caption;
+    videoElement.appendChild(captionElement);
+
+    const figure = document.createElement('figure');
+    figure.classList.add('video--played');
+    figure.style.width = '100%';
+    figure.style.height = '100%';
+    figure.appendChild(videoElement);
+
+    videoContainer.innerHTML = '';
+    videoContainer.appendChild(figure);
+  } catch (error) {
+    console.error('Error appending video player:', error);
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  appendVideoPlayer();
+});
+
+
+</script>
 @endsection

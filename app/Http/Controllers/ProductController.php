@@ -11,6 +11,8 @@ use App\Models\Image;
 use App\Models\Package;
 use DB;
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
     public function index()
@@ -54,44 +56,60 @@ class ProductController extends Controller
         $client = new Client();
         $categories = array(
             array(
-              'name' => 'Smartphone',
+              'name' => 'Smartphones',
               'type' => '01010000',
+              'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-539828796'
             ),
             array(
                 'name' => 'TV',
                 'type' => '04010000',
+                'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-542106139'
               ),
             array(
               'name' => 'Máy Tính Bảng',
               'type' => '01020000',
+              'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-538342563'
             ),
             array(
                 'name' => 'Galaxy Buds',
                 'type' => '01040000',
+                'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-538342563'
               ),
+              array(
+                'name' => 'Thiết bị đeo',
+                'type' => '01030000',
+                'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-538342566'
+              ),
+              
             array(
                 'name' => 'Phụ Kiện Di Động',
                 'type' => '01050000',
+                'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-538342566'
               ),
             array(
             'name' => 'Tủ Lạnh',
             'type' => '08030000',
+            'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-538698113'
             ),
             array(
                 'name' => 'Máy Giặt & Máy sấy',
                 'type' => '08010000',
+                'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-538698115'
             ),
             array(
             'name' => 'Điều Hòa',
             'type' => '08060000',
+            'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-538342531'
             ),
             array(
                 'name' => 'Thiết Bị Nhà Bếp',
                 'type' => '08080000',
+                'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-540753568'
             ),
             array(
                 'name' => 'Màn Hình',
                 'type' => '07010000',
+                'images' => 'https://images.samsung.com/is/image/samsung/p6pim/vn/epp/vn-eppcms-co04image-536891303'
             ),
         );
         // tivi
@@ -123,8 +141,10 @@ class ProductController extends Controller
             $json = json_decode($response->getBody(), true);
             DB::table('catalogues')->updateOrInsert([
                 'name' => $category['name'],
+                'slug' => Str::slug($category['name']),
             ]);
             $cat = Catalogue::where('name',$category['name'])->first();
+            $cat->image()->create(['url' => $category['images']]);
             foreach ($json['response']['resultData']['productList'] as $product)
             {
                 $data = array();
@@ -144,7 +164,7 @@ class ProductController extends Controller
                         }
                         else
                         {
-                            $images =  $value['galleryImage'];
+                            $images =  $value['thumbUrl'];
                         }
                     }
                     else
@@ -217,7 +237,41 @@ class ProductController extends Controller
     public function detail($alias)
     {
         $product = Product::active()->where('slug',$alias)->firstOrFail();
+        $client = new Client();
+        $content = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/card/detail/global?siteCode=vn&modelList='.$product->code.'&saleSkuYN=N&onlyRequestSkuYN=N&keySummaryYN=N&keySpecYN=N&quicklookYN=N');
+        $json = json_decode($content->getBody(), true);
+        $models = $json['response']['resultData']['productList'][0]['modelList'];
+        foreach ($models as $model)
+        {
+            if ($model['modelCode'] == $product->code)
+            {
+                $link = 'https://www.samsung.com'. $model['pdpUrl'];
+            }
+        }
+        try {            
+            $response = $client->get($link);            
+            $html = $response->getBody();            
+            $dom = new \DOMDocument();            
+            @$dom->loadHTML($html);            
+            $xpath = new \DOMXPath($dom);            
+            $benefitElement = $xpath->query("//div[@id='benefit']")->item(0);            
+            if ($benefitElement) {                
+                $benefitHtml = $benefitElement->C14N();        
+                $benefitHtml = str_replace('data-desktop-src','src',$benefitHtml);
+                $benefitHtml = preg_replace('/\$.*?\$/m', '', $benefitHtml);        
+                //var_dump($benefitHtml);            
+            } else {                
+                Log::error('Benefit element not found in the HTML.');            
+            }
+        } catch (\Exception $e) {            
+            Log::error('Error in ProductController@detail: ' . $e->getMessage());            
+            // Display an error message to the UI or handle the exception in an appropriate way        
+            }
+        
+        $product->content = $benefitHtml;
+        $product->save();
         DB::table('products')->where('id',$product->id)->increment('viewed');
+
         return view('product.detail',compact('product'));
     }
 }

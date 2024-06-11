@@ -1797,7 +1797,7 @@
                                                                 <div class="pd03-product-card__product-name">
 
                                                                     <a class="pd03-product-card__product-name-link"
-                                                                        href="/vn/smartphones/galaxy-a/galaxy-a35-5g-awesome-iceblue-128gb-sm-a356elbdxxv/"
+                                                                        href="{{$product->url}}"
                                                                         aria-label="Galaxy A35 5G"
                                                                         data-modelcode="SM-A356ELBDXXV"
                                                                         data-modelname="SM-A356E/DS"
@@ -1846,120 +1846,6 @@
                                                                                 </a>
                                                                             </div>
                                                                         </div>
-                                                                        @foreach (json_decode($product->options_lists) as $options)
-                                                                            @if ($options->fmyChipType == 'COLOR')
-                                                                            <div
-                                                                                        class="option-selector-v2 option-selector-v2__color-text">
-
-                                                                                
-
-                                                                                    
-                                                                                        <div class="option-selector-v2__wrap option-selector-v2__wrap--color-chip"
-                                                                                            data-global-text="{ &quot;selected&quot; : &quot;Đã chọn&quot; }">
-                                                                                            <div
-                                                                                                class="option-selector-v2__swiper option-selector-v2__swiper--min">
-                                                                                                <!-- (2021.07.07 수정) aria-live="polite" 삭제 -->
-                                                                                                <div
-                                                                                                    class="option-selector-v2__swiper-container">
-                                                                                                    <!-- (2021.07.07 수정) role="list" 추가 -->
-                                                                                                    <div class="option-selector-v2__swiper-wrapper"
-                                                                                                        role="list" style="">
-                                                                                                        @foreach ($options->optionList as $color)
-                                                                                                        <div class="option-selector-v2__swiper-slide is-checked "
-                                                                                                            role="listitem">
-                                                                                                            <button type="button"
-                                                                                                                class="option-selector-v2__color js-pfv2-product-fmychip"
-                                                                                                                data-chiptype="color"
-                                                                                                                data-modeli="0"
-                                                                                                                an-tr="pd03_product finder:option-product finder-text-option"
-                                                                                                                an-ca="option click"
-                                                                                                                an-ac="pf product card"
-                                                                                                                an-la="color:{{$color->optionName}}"
-                                                                                                                data-modelcode="SM-M156BDBUXXV"
-                                                                                                                data-modelname="SM-M156B/DSN">
-
-                                                                                                                <span
-                                                                                                                    class="option-selector-v2__color-code">
-                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                                                        width="36"
-                                                                                                                        height="35.999"
-                                                                                                                        viewBox="0 0 36 35.999">
-                                                                                                                        <g
-                                                                                                                            transform="translate(-18.001 9)">
-                                                                                                                            <rect
-                                                                                                                                width="36"
-                                                                                                                                height="35.999"
-                                                                                                                                transform="translate(18.001 -9)"
-                                                                                                                                fill="none">
-                                                                                                                            </rect>
-                                                                                                                            <path
-                                                                                                                                d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
-                                                                                                                                transform="translate(18.001 -9)"
-                                                                                                                                fill="{{$color->optionCode}}">
-                                                                                                                            </path>
-                                                                                                                            
-                                                                                                                            <path
-                                                                                                                                d="M18,1A17,17,0,0,0,5.979,30.019,17,17,0,1,0,30.02,5.979,16.889,16.889,0,0,0,18,1m0-1A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
-                                                                                                                                transform="translate(18.001 -9)"
-                                                                                                                                fill="rgba(0,0,0,0.5)">
-                                                                                                                            </path>
-                                                                                                                        </g>
-                                                                                                                    </svg>
-                                                                                                                    <span
-                                                                                                                        class="hidden">Xanh
-                                                                                                                        Than</span>
-
-                                                                                                                </span>
-
-                                                                                                            </button>
-                                                                                                        </div>
-                                                                                                        @endforeach
-
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-
-                                                                                    
-                                                                                
-                                                                                </div>
-                                                                            @endif
-                                                                            @if ($options->fmyChipType == 'MOBILE MEMORY')
-                                                                            <div class="option-selector-v2__wrap option-selector-v2__wrap--capacity"
-                                                                                data-global-text="{ &quot;selected&quot; : &quot;Đã chọn&quot; }">
-                                                                                <div
-                                                                                    class="option-selector-v2__swiper option-selector-v2__swiper--min">
-                                                                                    <div
-                                                                                        class="option-selector-v2__swiper-container">
-                                                                                        <div class="option-selector-v2__swiper-wrapper"
-                                                                                            role="list" style="">
-                                                                                            @foreach ($options->optionList as $memory)
-                                                                                            <div class="option-selector-v2__swiper-slide "
-                                                                                                role="listitem">
-                                                                                                <button type="button"
-                                                                                                    class="option-selector-v2__size js-pfv2-product-fmychip"
-                                                                                                    data-chiptype="other"
-                                                                                                    data-modeli="0"
-                                                                                                    an-tr="pd03_product finder:option-product finder-text-option"
-                                                                                                    an-ca="option click"
-                                                                                                    an-ac="pf product card"
-                                                                                                    an-la="mobile memory:{{$memory->optionCode}}"
-                                                                                                    data-modelcode="SM-A356ELBDXXV"
-                                                                                                    data-modelname="SM-A356E/DS">
-                                                                                                    <span
-                                                                                                        class="option-selector-v2__size-text">{{$memory->optionLocalName}}</span>
-
-                                                                                                </button>
-                                                                                            </div>
-                                                                                            @endforeach
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            @endif
-                                                                        @endforeach
                                                                     </div>
 
                                                                 </div>
@@ -2023,13 +1909,7 @@
                                                                 <div class="pd03-product-card__spec ">
                                                             
                                                                     <ul class="pd03-product-card__spec-list" role="list">
-                                                                        @foreach (json_decode($product->benefits_text) as $benefits )
                                                                         
-                                                                        
-                                                                        <li class="pd03-product-card__spec-item"
-                                                                            role="listitem">{{$benefits->localBenefitText}}
-                                                                        </li>
-                                                                        @endforeach
                                                                     </ul>
 
                                                                 </div>

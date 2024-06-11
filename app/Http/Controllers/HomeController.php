@@ -19,10 +19,11 @@ class HomeController extends Controller
     public function index()
     {
         $slides = Slide::orderBy('ordering','asc')->paginate();
+        $catalogues = Catalogue::All();
         $testimonials = Testimonial::All();
         $teams = Team::All();
         $posts = Post::latest()->withCount(['images'])->having('images_count','>',0)->active()->take(5)->get();
-        return view('home.index',['slides'=> $slides, 'posts'=>$posts, 'testimonials' => $testimonials, 'teams' => $teams]);
+        return view('home.index',['slides'=> $slides, 'posts'=>$posts, 'testimonials' => $testimonials, 'teams' => $teams, 'catalogues' => $catalogues]);
     }
     public function order()
     {
