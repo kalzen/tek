@@ -1797,7 +1797,7 @@
                                                                 <div class="pd03-product-card__product-name">
 
                                                                     <a class="pd03-product-card__product-name-link"
-                                                                        href="{{$product->url}}"
+                                                                        href="{{ route('product.detail',['alias' => $product->slug]) }}"
                                                                         aria-label="Galaxy A35 5G"
                                                                         data-modelcode="SM-A356ELBDXXV"
                                                                         data-modelname="SM-A356E/DS"

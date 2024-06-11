@@ -20,7 +20,8 @@ const swiper = new Swiper('.co69-trending-now__swiper', {
   });
   const swiper_cat = new Swiper('.category-slide', {
     slidesPerView: 5,
-      spaceBetween: 10,
+    loop: true,
+      spaceBetween: 30,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -39,7 +40,7 @@ const swiper = new Swiper('.co69-trending-now__swiper', {
           spaceBetween: 40,
         },
         "@1.50": {
-          slidesPerView: 4,
+          slidesPerView: 5,
           spaceBetween: 50,
         },
       },

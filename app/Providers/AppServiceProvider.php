@@ -44,8 +44,8 @@ class AppServiceProvider extends ServiceProvider
             View::share('shared_config', Config::all()->keyBy('name'));
             
         });
-        View::composer(['home.*','partials.header'], function ($view) {
-            View::share('shared_categories', Category::orderBy('id','asc')->get());
+        View::composer(['home.*','partials.header', 'product.index', 'layouts.*'], function ($view) {
+            View::share('shared_categories', Catalogue::all());
             
         });
     }
