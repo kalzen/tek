@@ -79,6 +79,7 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
         Route::post('category', [PostController::class, 'category'])->name('category');
     });
     //Product
+    Route::post('update_formula', [ProductController::class, 'updateFormula'])->name('product.updateFormula');
     Route::resource('product', ProductController::class);
     Route::prefix('product')->name('product.')->group(function () {
         Route::post('category', [ProductController::class, 'category'])->name('category');

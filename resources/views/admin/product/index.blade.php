@@ -11,12 +11,12 @@
                         <tr>
                             <th>#</th>
                             <th>Ảnh</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Từ khóa</th>
-                            <th>Giá</th>
-                            <th>Thời gian</th>
-                            <th>Lượt xem</th>
-                            <th>Trạng thái</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Giá (A)</th>
+                            <th>Giá Chiết khấu (B)</th>
+                            <th>Sale text</th>
+                            <th>Công thức</th>
+                            <th>Giá báo khách</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -32,29 +32,30 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{route('admin.product.edit', $record->id)}}">{{$record->title}}</a>
+                                <a href="{{route('admin.product.edit', $record->id)}}">{{$record->code}}</a>
+                            </td>
+                            
+                            <td>
+                                <span>{{number_format($record->price,0)}}</span>
                             </td>
                             <td>
-                                {{$record->tags->pluck('name')->join(', ')}}
-                            </td>
-                            <td>
-                                <span>{{$record->price}}</span>
+                                {{number_format($record->sale_price,0)}}
                             </td>
                             <td class="text-center">
-                                {{date('d/m/Y',strtotime($record->created_at))}}
-                                @if($record->updated_at)
-                                <br>({{date('d/m/Y',strtotime($record->updated_at))}})
+                                <ul>
+                                    @if (isset($record->sale_text) && $record->sale_text != 'null')
+                                @foreach (json_decode($record->sale_text) as $sale_text)
+                                <li style="list-style:none">{!!$sale_text!!}</li> 
+                                @endforeach
                                 @endif
+                                </ul>
                             </td>
                             <td class="text-center">
-                                {{number_format($record->viewed,0)}}
+                                <input class="input-control" name="formula" type="text" value="{{$record->formula}}">
+                                <a href="#" data-key="{{$record->id}}" class=" text-light badge bg-primary bg-opacity-10 save-formula">Lưu</a>
                             </td>
                             <td class="text-center">
-                                @if($record->status)
-                                <span class="badge bg-success">Đăng</span>
-                                @else
-                                <span class="badge bg-secondary">Ẩn</span>
-                                @endif
+                                {{$record->formulaValue($record->formula)}}
                             </td>
                             <td>
                                 <a href="javascript:;" class="js-delete text-danger" data-key="{{$record->id}}" title="Xóa"><i class="icon-trash"></i></a>
@@ -102,6 +103,19 @@
                 })
             }
         }, function (dismiss) {});
+    });
+    $('.save-formula').on('click', function() {
+        let product = $(this).data('key');
+        var value = $(this).closest("td").find("input[name='formula']").val();
+        //console.log(value);
+        $.ajax({
+                    url: '{{route('admin.product.updateFormula')}}',
+                    method:'POST',data:{_token:'{{csrf_token()}}', formula:value, id:product},dataType:'json',
+                    success:function(resp) {
+                        //toastr[resp.success ? 'success' : 'danger'](resp.message)
+                        location.reload();
+                    }
+                })
     });
 </script>
 @endsection

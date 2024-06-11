@@ -41,6 +41,19 @@ class Product extends Model
     {
         return $this->belongsToMany(Catalogue::class)->withTimestamps();
     }
+    public function formulaValue($formula)
+    {
+        $expression = str_replace('B', (int)$this->sale_price, str_replace('A', (int)$this->price , $formula));
+        //dd()
+        // Replace any whitespace characters with empty strings
+        $expression = str_replace(array(' ', '\t', '\n', '\r'), '', $expression);
+
+        // Evaluate the expression using eval()
+        $result = @eval('return ' . $expression . ';');
+        //eval( '$result = (' . $math. ');' );
+        return $result;
+    }
+    
     public static function boot()
     {
         parent::boot();

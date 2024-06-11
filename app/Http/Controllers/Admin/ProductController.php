@@ -63,7 +63,13 @@ class ProductController extends Controller
             return back()->withInput();
         }
     }
-    
+    public function updateFormula(Request $request)
+    {
+        $product =  Product::find($request->id);
+        $product->formula = $request->formula;
+        
+        return $product->save();
+    }
     public function show($id)
     {
         
