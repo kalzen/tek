@@ -140,6 +140,7 @@
                         <div class="woocommerce columns-7">
                             <div class="products">
                             @foreach ($packages as $package)
+                            @if ($package->products->count())
                                 <div class="product first">
                                     <div class="yith-wcwl-add-to-wishlist">
                                         <a href="#" rel="nofollow" class="add_to_wishlist"> Yêu thích</a>
@@ -176,6 +177,7 @@
                                     <a class="add-to-compare-link" href="#">So sánh</a>
                                 </div>
                                 <!-- .product -->
+                                 @endif
                             @endforeach
                             </div>
                             <!-- .products -->
@@ -278,6 +280,7 @@
                         <div class="woocommerce columns-1">
                             <div class="products">
                             @foreach ($packages as $package)
+                            @if ($package->products->count())
                                 <div class="product list-view last">
                                     <div class="media">
                                         <img width="224" height="197" alt=""
@@ -354,6 +357,7 @@
                                     </div>
                                     <!-- .media -->
                                 </div>
+                                @endif
                             @endforeach
                                 <!-- .products -->
                             </div>
