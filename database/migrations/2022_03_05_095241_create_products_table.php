@@ -27,8 +27,8 @@ class CreateProductsTable extends Migration
             $table->longtext('content')->nullable()->default(null);
             $table->text('price')->nullable()->default(null);
             $table->text('sale_price')->nullable()->default(null);
-            $table->integer('package_id');
             $table->text('formula')->nullable()->default(null);
+            $table->text('json_data')->nullable()->default(null);
             $table->unsignedBigInteger('viewed')->nullable()->default(null);
             $table->unsignedInteger('user_id')->nullable()->default(null);
             $table->unsignedInteger('status')->nullable()->default(Product::STATUS_ACTIVE);

@@ -49,7 +49,10 @@ class ProductController extends Controller
             });
         }
         $products = $query->paginate();
-        return view('product.index',compact('catalogue','products','catalogues'));
+        $packages = $catalogue->packages()->with('products')->get();
+        //dd($packages->count());
+        //dd($packages->products()->count());
+        return view('product.index',compact('catalogue','products','catalogues', 'packages'));
     }
     public function crawl()
     {
@@ -139,20 +142,40 @@ class ProductController extends Controller
             $response = $client->get('https://searchapi.samsung.com/v6/front/epp/v2/product/finder/global?type='.$category['type'].'&siteCode=vn&start=1&num=100&sort=onlineavailability&onlyFilterInfoYN=N&keySummaryYN=Y&specHighlightYN=Y&companyCode=vn_congnghed&pfType=G&familyId=');
 
             $json = json_decode($response->getBody(), true);
-            DB::table('catalogues')->updateOrInsert([
-                'name' => $category['name'],
-                'slug' => Str::slug($category['name']),
-            ]);
+            DB::beginTransaction();
+                    try {
+                        DB::table('catalogues')->updateOrInsert([
+                            'name' => $category['name'],
+                            'slug' => Str::slug($category['name']),
+                        ]);
+                        DB::commit();
+                    
+                    } catch(Exception $ex) {
+                        DB::rollback();
+                        
+                    }
             $cat = Catalogue::where('name',$category['name'])->first();
             $cat->image()->create(['url' => $category['images']]);
             foreach ($json['response']['resultData']['productList'] as $product)
             {
                 $data = array();
                 
-                $package = new Package();
-                $package->name = $product['fmyEngName'];
-                $package->options = json_encode($product['chipOptions']);
-                $package->save();
+                DB::beginTransaction();
+                    try {
+                        DB::table('packages')->updateOrInsert([
+                            'name' => $product['fmyEngName'],
+                            'options' => json_encode($product['chipOptions']),
+                            'catalogue_id' => $cat->id,
+                            'json_data' => json_encode($product)
+                        ]);
+                        DB::commit();
+                    
+                    } catch(Exception $ex) {
+                        DB::rollback();
+                        
+                    }
+                $package = Package::where('name',$product['fmyEngName'])->first();
+                
                 foreach ($product['modelList'] as $key => $value)
                 {
                     $data['price'] = $value['price'];
@@ -179,7 +202,7 @@ class ProductController extends Controller
                     $data['instock'] = $value['stockStatusText'];
                     $data['sale_text'] = json_encode($value['salesText']);
                     $data['sale_price'] = $value['promotionPrice'];
-                    $data['package_id']= $package->id;
+                    
                     // foreach ($product['chipOptions'] as $att)
                     // {
                     //     if($att['fmyChipType'] == 'COLOR')
@@ -202,6 +225,7 @@ class ProductController extends Controller
                         $product = Product::create($data);
                     // $product->attributes()->sync(collect($attributes)->filter(function($item){return $item['value'];}));
                         $product->catalogues()->sync($cat->id);
+                        $product->packages()->sync($package->id);
                         $product->images()->sync(collect(explode(',',$images))->map(function($item){return Image::updateOrCreate(['url'=>$item]);})->pluck('id'));
                         DB::commit();
                     
@@ -237,6 +261,8 @@ class ProductController extends Controller
     public function detail($alias)
     {
         $product = Product::active()->where('slug',$alias)->firstOrFail();
+        if ($product->content == '')
+        {
         $client = new Client();
         $content = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/card/detail/global?siteCode=vn&modelList='.$product->code.'&saleSkuYN=N&onlyRequestSkuYN=N&keySummaryYN=N&keySpecYN=N&quicklookYN=N');
         $json = json_decode($content->getBody(), true);
@@ -270,6 +296,14 @@ class ProductController extends Controller
         
         $product->content = $benefitHtml;
         $product->save();
+        }
+        if ($product->json_data == '')
+        {
+            $client = new Client();
+            $content = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/card/detail/global?siteCode=vn&modelList='.$product->code.'&saleSkuYN=N&onlyRequestSkuYN=N&keySummaryYN=N&keySpecYN=N&quicklookYN=N');
+            $product->json_data = $content->getBody();
+            $product->save();
+        }
         DB::table('products')->where('id',$product->id)->increment('viewed');
 
         return view('product.detail',compact('product'));

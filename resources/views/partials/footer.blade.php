@@ -1,83 +1,182 @@
-    <!-- Footer Area Start -->
-    <footer class="footer anim-object2">
-        <div class="footer-main-area" data-background="{{ asset('frontend/images/footer-bg.png')}}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="widget footer-widget">
-                            <!-- <img src="{{ asset('frontend/images/logo-footer.png')}}" alt="" class="mrb-20"> -->
-                            <address class="mrb-25">
-								<p class="text-light-gray">Số 156/109 Trường Chinh - KCN Đồng Hòa, Q. Kiến An, HP</p>
-								<div class="mrb-10"><a href="#" class="text-light-gray"><i class="fas fa-phone-alt mrr-10"></i>0987.654.321</a></div>
-								<div class="mrb-10"><a href="#" class="text-light-gray"><i class="fas fa-envelope mrr-10"></i>info@pegasus-marine.vn</a></div>
-								<div class="mrb-0"><a href="#" class="text-light-gray"><i class="fas fa-globe mrr-10"></i>pegasus-marine.vn</a></div>
-							</address>
-                            <ul class="social-list">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="widget footer-widget">
-                                    <h5 class="widget-title text-white mrb-30">Dịch vụ</h5>
-                                    <ul class="footer-widget-list">
-                                        <li><a href="#">Air Freight</a></li>
-                                        <li><a href="#">Ocean Freight</a></li>
-                                        <li><a href="#">Road Freight</a></li>
-                                        <li><a href="#">Warehousing</a></li>
-                                        <li><a href="#">Supply Chain</a></li>
-                                    </ul>
-                                </div>
+<footer class="site-footer footer-v1">
+            <div class="col-full">
+                <!-- .before-footer-wrap -->
+                <div class="footer-widgets-block">
+                    <div class="row">
+                        <div class="footer-contact">
+                            <div class="footer-logo">
+                                <a href="{{route('index')}}" class="custom-logo-link" rel="home">
+                                    <img src="{{asset('samfan/assets/images/logo-samfan.png')}}" alt="logo">
+                                </a>
                             </div>
-                            <div class="col-6">
-                                <div class="widget footer-widget">
-                                    <h5 class="widget-title text-white mrb-30">Liên kết</h5>
-                                    <ul class="footer-widget-list">
-                                        <li><a href="#">Trang chủ</a></li>
-                                        <li><a href="#">Giới thiệu</a></li>
-                                        <li><a href="#">Tin tức</a></li>
-                                        <li><a href="#">Dịch vụ</a></li>
-                                        <li><a href="#">Liên hệ</a></li>
-                                    </ul>
+                            <!-- .footer-logo -->
+                            <div class="contact-payment-wrap">
+                                <div class="footer-contact-info">
+                                    <div class="media">
+                                        <div class="media-body">
+                                        <h5 class="footer-payment-info-title">Hỗ trợ thanh toán</h5>
+                                            <div class="footer-payment-icons">
+                                                <ul class="list-payment-icons nav">
+                                                    <li class="nav-item">
+                                                        <img class="payment-icon-image"
+                                                            src="{{asset('samfan/assets/images/credit-cards/mastercard.svg')}}"
+                                                            alt="mastercard" />
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <img class="payment-icon-image"
+                                                            src="{{asset('samfan/assets/images/credit-cards/visa.svg')}}"
+                                                            alt="visa" />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- .media-body -->
+                                    </div>
+                                    <!-- .media -->
                                 </div>
+                                <!-- .footer-contact-info -->
+                                <div class="footer-payment-info">
+                                        <div class="media">
+                                            <span class="media-left icon media-middle">
+                                                <i class="tm tm-safe-payments"></i>
+                                            </span>
+                                            <div class="media-body">
+                                                <h5 class="footer-payment-info-title">Thanh toán chuyển khoản/ trả góp</h5>
+                                                <div class="footer-payment-icons">
+                                                    <ul class="list-payment-icons nav">
+                                                        <li class="nav-item">
+                                                            <img class="payment-icon-image" src="{{asset('samfan/assets/images/homecredit.png')}}" alt="mastercard">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- .footer-payment-icons -->
+                                                <div class="footer-secure-by-info">
+                                                    <h6 class="footer-secured-by-title">Secured by:</h6>
+                                                    <ul class="footer-secured-by-icons">
+                                                        <li class="nav-item">
+                                                            <img class="secure-icons-image" src="{{asset('samfan/assets/images/secured-by/norton.svg')}}" alt="norton">
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <img class="secure-icons-image" src="{{asset('samfan/assets/images/secured-by/mcafee.svg')}}" alt="mcafee">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- .footer-secure-by-info -->
+                                            </div>
+                                            <!-- .media-body -->
+                                        </div>
+                                        <!-- .media -->
+                                    </div>
                             </div>
+                            <!-- .contact-payment-wrap -->
+                             
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-12">
-                        <div class="widget footer-widget">
-                            <h5 class="widget-title text-white mrb-30">Đăng ký nhận báo giá</h5>
-                            <p class="text-light-gray">Để lại thông tin để được nhận báo giá mọi dịch vụ của chúng tôi</p>
-                            <input type="text" class="form-control" placeholder="Nhập địa chỉ email">
-                            <a href="#" class="cs-btn-one btn-primary-color btn-sm has-icon mrt-20"><i class="webexflaticon flaticon-send"></i>Gửi</a>
+                        <!-- .footer-contact -->
+                        <div class="footer-widgets">
+                            <div class="columns">
+                                <aside class="widget clearfix">
+                                    <div class="body">
+                                        <h4 class="widget-title">Về chúng tôi</h4>
+                                        <div class="menu-footer-menu-1-container">
+                                            <ul id="menu-footer-menu-1" class="menu">
+                                                <li class="menu-item">
+                                                    <a href="#">Giới thiệu</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Quy trình giao hàng</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Lợi ích mua hàng</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Hướng dẫn mua hàng</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Xuất hóa đơn VAT</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- .menu-footer-menu-1-container -->
+                                    </div>
+                                    <!-- .body -->
+                                </aside>
+                                <!-- .widget -->
+                            </div>
+                            <!-- .columns -->
+                            <div class="columns">
+                                <aside class="widget clearfix">
+                                    <div class="body">
+                                        <h4 class="widget-title">Sản Phẩm</h4>
+                                        <div class="menu-footer-menu-2-container">
+                                            <ul id="menu-footer-menu-2" class="menu">
+                                                @foreach ($shared_categories as $cat)
+                                                <li class="menu-item">
+                                                    <a href="{{route('product.catalogue', ['alias' => $cat->slug])}}">{{$cat->name}}</a>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <!-- .menu-footer-menu-2-container -->
+                                    </div>
+                                    <!-- .body -->
+                                </aside>
+                                <!-- .widget -->
+                            </div>
+                            <!-- .columns -->
+                            <div class="columns">
+                                <aside class="widget clearfix">
+                                    <div class="body">
+                                        <h4 class="widget-title">Chính sách</h4>
+                                        <div class="menu-footer-menu-3-container">
+                                            <ul id="menu-footer-menu-3" class="menu">
+                                                <li class="menu-item">
+                                                    <a href="#">Chính sách vận chuyển</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Chính sách kiểm hàng</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Chính sách đổi trả</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Chính sách bảo hành</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Bảng giá vật tư lắp đặt</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Trung tâm bảo hành</a>
+                                                </li>
+                                                <li class="menu-item">
+                                                    <a href="#">Cộng tác bán hàng</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- .menu-footer-menu-3-container -->
+                                    </div>
+                                    <!-- .body -->
+                                </aside>
+                                <!-- .widget -->
+                            </div>
+                            <!-- .columns -->
                         </div>
+                        <!-- .footer-widgets -->
                     </div>
+                    <!-- .row -->
                 </div>
-            </div>
-        </div>
-        <div class="footer-bottom-area">
-            <div class="container footer-border-top pdt-30 pdb-10">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="text-center">
-                            <span class="text-light-gray">Copyright © 2022 by pegasus-marrine.vn. Thiết kế bởi<a class="text-primary-color" target="_blank" href="https://kalzen.com"> Kalzen Media</a></span>
+                <!-- .footer-widgets-block -->
+                <div class="site-info">
+                    <div class="col-full">
+                        <div class="copyright">Copyright &copy; 2024 <a href="#">Samfan</a>. All rights reserved.</div>
+                        <!-- .copyright -->
+                        <div class="credit">Made with
+                            <i class="fa fa-heart"></i> by Kalzen Dev.
                         </div>
+                        <!-- .credit -->
                     </div>
+                    <!-- .col-full -->
                 </div>
+                <!-- .site-info -->
             </div>
-        </div>
-    </footer>
-    <!-- Footer Area End -->
-    <!-- BACK TO TOP SECTION -->
-    <div class="back-to-top bg-primary-color">
-        <i class="fab fa-angle-up"></i>
-    </div>
-    <!-- Integrated important scripts here -->
-    <script src="{{ asset('frontend/js/jquery.v1.12.4.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery-core-plugins.js') }}"></script>
-    <script src="{{ asset('frontend/js/main.js') }}"></script>
+            <!-- .col-full -->
+        </footer>

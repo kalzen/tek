@@ -25,6 +25,10 @@ class Catalogue extends Model
     {
         return '/danh-muc/' . $this->slug;
     }
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
+    }
     public function products()
     {
         return $this->belongsToMany(Product::class)->withTimestamps();

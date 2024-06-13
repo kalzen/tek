@@ -9,233 +9,215 @@
 <meta property="og:description" content="{{substr(strip_tags($product->description), 0, 300)}}">
 @stop
 @section('styles')
-
 @endsection
 @section('content')
-
-
-<div class="aem-Grid aem-Grid--12 aem-Grid--default--12 ">
-
-	<div class="pd-g-product-promotion-bar aem-GridColumn aem-GridColumn--default--12">
-
-	</div>
-	<div class="pd-g-usp-banner aem-GridColumn aem-GridColumn--default--12">
-
-
-
-	</div>
-	<div class="pd-g-header-navigation aem-GridColumn aem-GridColumn--default--12">
-		<div class="us-epp-discount-keep" style="display: none;"></div>
-
-
-
-
-		<div class="pd-header-navigation-keep">
-			<div class="pd-header-navigation bg-black" id="anchorContainer" style="">
-				<!-- /* mobile - menu toggle : pd-header-navigation__menu--open/pd-header-navigation__menu--close */-->
-				<div class="pd-header-navigation__header pd-header-navigation__menu--close">
-					<h1 class="pd-header-navigation__headline">
-						<strong class="pd-header-navigation__headline-text">{{$product->title}}</strong>
-					</h1>
-
-					<div class="pd-header-navigation__menu-wrap">
-						<button type="button" aria-label="prev"
-							class="pd-header-navigation__btn pd-header-navigation__btn-prev">
-							<svg class="icon" focusable="false">
-								<use xlink:href="#previous-regular" href="#previous-regular"></use>
-							</svg>
-						</button>
-						<div class="pd-header-navigation__menu-inner">
-
-							<input type="hidden" name="featureAnchorListYn" id="featureAnchorListYn" value="N">
-
-
-							<ul class="pd-header-navigation__menu">
-
-
-
-
-								<li id="anchor_pd-g-feature-benefit" class="pd-header-navigation__menu-item" style="">
-									<a href="#benefit" an-tr="pdd01_anchor nav-product detail-text-menu"
-										an-ca="navigation" an-ac="secondary navi" an-la="secondary navi:features"
-										aria-label="Tính Năng">Tính Năng<svg class="icon">
-											<use xlink:href="#done-bold" href="#done-bold"></use>
-										</svg></a>
-								</li>
-								<li id="anchor_pd-g-feature-gallery-carousel-pim"
-									class="pd-header-navigation__menu-item" style="display: none; margin-left: 0px;">
-									<a href="#gallery" an-tr="pdd01_anchor nav-product detail-text-menu"
-										an-ca="navigation" an-ac="secondary navi" an-la="secondary navi:gallery"
-										aria-label="Hình Ảnh">Hình Ảnh<svg class="icon">
-											<use xlink:href="#done-bold" href="#done-bold"></use>
-										</svg></a>
-								</li>
-
-
-
-
-
-
-								<li id="anchor_pd-g-product-specs" class="pd-header-navigation__menu-item" style="">
-									<a href="#specs" an-tr="pdd01_anchor nav-product detail-text-menu"
-										an-ca="navigation" an-ac="secondary navi" an-la="secondary navi:spec"
-										aria-label="Thông Số Kỹ Thuật">Thông Số Kỹ Thuật<svg class="icon">
-											<use xlink:href="#done-bold" href="#done-bold"></use>
-										</svg></a>
-								</li>
-
-
-								<li id="reviewWrap" class="pd-header-navigation__menu-item">
-									<a href="#reviews" an-tr="pdd01_anchor nav-product detail-text-menu"
-										an-ca="navigation" an-ac="secondary navi" an-la="secondary navi:review"
-										aria-label="Đánh giá">Đánh giá<svg class="icon">
-											<use xlink:href="#done-bold" href="#done-bold"></use>
-										</svg></a>
-								</li>
-								<li id="anchor_pd-g-product-support" class="pd-header-navigation__menu-item" style="">
-									<a href="#support" an-tr="pdd01_anchor nav-product detail-text-menu"
-										an-ca="navigation" an-ac="secondary navi" an-la="secondary navi:support"
-										aria-label="Hỗ Trợ">Hỗ Trợ<svg class="icon">
-											<use xlink:href="#done-bold" href="#done-bold"></use>
-										</svg></a>
-								</li>
-								<li id="anchor_pd-g-product-compare" class="pd-header-navigation__menu-item">
-									<a href="#compare" an-tr="pdd01_anchor nav-product detail-text-menu"
-										an-ca="navigation" an-ac="secondary navi" an-la="secondary navi:compare"
-										aria-label="So Sánh">So Sánh<svg class="icon">
-											<use xlink:href="#done-bold" href="#done-bold"></use>
-										</svg></a>
-								</li>
-								<!-- /* feature pd anchor-nav 에서만 사용 */-->
-								<li class="pd-header-navigation__menu-item" id="anchorWtb"
-									style="display: none; margin-left: 0px;">
-
-									<a href="javascript:;" class="js-cta-buy" data-modelcode="SM-M156BDBUXXV"
-										data-iacode="01010500" an-tr="pdd01_anchor nav-product detail-text-where to buy"
-										an-ca="buy cta" an-ac="where to buy" an-la="where to buy"
-										aria-label="Mua ở đâu">Mua ở đâu<svg class="icon">
-											<use xlink:href="#done-bold" href="#done-bold"></use>
-										</svg>
-									</a>
-
-
-								</li>
-
-
-							</ul>
-							<div class="pd-header-navigation__menu-bar"
-								style="left: 280.031px; width: 54px; display: none;"></div>
-						</div>
-						<button type="button" aria-label="next"
-							class="pd-header-navigation__btn pd-header-navigation__btn-next">
-							<svg class="icon" focusable="false">
-								<use xlink:href="#next-regular" href="#next-regular"></use>
-							</svg>
-						</button>
-						<div class="pd-header-navigation__menu-epromoter-cta">
-							<button class="cta cta--label cta--icon cta--icon-leading" an-ca="content click"
-								an-ac="feature" an-la="floating chat:chat with an expert">
-								Trò chuyện với chuyên gia
-								<svg class="icon" focusable="false" aria-hidden="true">
-									<use xlink:href="#message-regular" href="#message-regular"></use>
-								</svg>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="pd-buying-price">
-					<div class="pd-buying-price__wrap">
-						<div class="pd-buying-price__new-price" data-promotionprice="{{$product->price}}">
-							{{number_format($product->price)}}₫</div>
-					</div>
-					<!-- /* desktop - add to cart button */-->
-
-					<div class="pd-buying-price__cta"><a class="cta cta--contained cta--emphasis anchorBtn" href="#"
-							style="" data-pimsubtype="galaxy m" data-pvitype="mobile" data-pvisubtype="smartphone"
-							data-modelrevenue="4690400" data-modelprice="4690400" data-modelqty="1"
-							data-modelcurrency="vnd" data-modelcode="SM-M156BDBUXXV" data-modelname="SM-M156B/DSN"
-							data-modeldisplay="Galaxy M15 5G" data-discountprice=""
-							an-tr="pdd01_anchor nav-product detail-cta-buy page" an-ca="buy cta" an-ac="buy now"
-							an-la="buy now">MUA NGAY</a></div>
-
-
-				</div>
-			</div>
-			<div class="pd-header-navigation__dummy">
-				<div class="pd-header-navigation__dummy-headline"></div>
-
-				<div class="pd-header-navigation__dummy-menu"></div>
-			</div>
-		</div>
-
-	</div>
-	<div class="container">
-		<div class="row">
-			{!!$product->content!!}
-		</div>
-	</div>
-</div>
-
-
+<div class="col-full">
+    <div class="row">
+        <!-- .woocommerce-breadcrumb -->
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                <div class="product product-type-simple">
+                    <div class="single-product-wrapper">
+                        <div class="product-images-wrapper thumb-count-4">
+                            <!-- .onsale -->
+                            <div id="techmarket-single-product-gallery"
+                                class="techmarket-single-product-gallery techmarket-single-product-gallery--with-images techmarket-single-product-gallery--columns-4 images"
+                                data-columns="4">
+                                <div class="techmarket-single-product-gallery-images" data-ride="tm-slick-carousel"
+                                    data-wrap=".woocommerce-product-gallery__wrapper"
+                                    data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;#techmarket-single-product-gallery .techmarket-single-product-gallery-thumbnails__wrapper&quot;}">
+                                    <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images"
+                                        data-columns="4">
+                                        <a href="#" class="woocommerce-product-gallery__trigger">🔍</a>
+                                        <figure class="woocommerce-product-gallery__wrapper ">
+                                            @foreach ($product->images as $image)
+                                            
+                                            
+                                            <div data-thumb="{{$image->url}}"
+                                                class="woocommerce-product-gallery__image">
+                                                <a href="{{$image->url}}" tabindex="0">
+                                                    <img width="600" height="600"
+                                                        src="{{$image->url}}"
+                                                        class="attachment-shop_single size-shop_single wp-post-image"
+                                                        alt="">
+                                                </a>
+                                            </div>
+                                            @endforeach
+                                        </figure>
+                                    </div>
+                                    <!-- .woocommerce-product-gallery -->
+                                </div>
+                                <!-- .techmarket-single-product-gallery-images -->
+                                <div class="techmarket-single-product-gallery-thumbnails" data-ride="tm-slick-carousel" data-wrap=".techmarket-single-product-gallery-thumbnails__wrapper" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;vertical&quot;:true,&quot;verticalSwiping&quot;:true,&quot;focusOnSelect&quot;:true,&quot;touchMove&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-up\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-down\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;asNavFor&quot;:&quot;#techmarket-single-product-gallery .woocommerce-product-gallery__wrapper&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:765,&quot;settings&quot;:{&quot;vertical&quot;:false,&quot;horizontal&quot;:true,&quot;verticalSwiping&quot;:false,&quot;slidesToShow&quot;:4}}]}">
+                                    <figure class="techmarket-single-product-gallery-thumbnails__wrapper">
+                                        @foreach($product->images as $image)
+                                        <figure data-thumb="{{$image->url}}" class="techmarket-wc-product-gallery__image">
+                                            <img width="180" height="180" src="{{$image->url}}" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">
+                                        </figure>
+                                        @endforeach
+                                    </figure>
+                                    <!-- .techmarket-single-product-gallery-thumbnails__wrapper -->
+                                </div>
+                                <!-- .techmarket-single-product-gallery-thumbnails -->
+                            </div>
+                            <!-- .techmarket-single-product-gallery -->
+                        </div>
+                        <!-- .product-images-wrapper -->
+                        <div class="summary entry-summary">
+                            <div class="single-product-header">
+                                <h1 class="product_title entry-title">{{$product->title}}</h1>
+                                <a class="add-to-wishlist" href="#"> Yêu thích</a>
+                            </div>
+                            <p class="price">
+                                        <ins>
+                                            <span class="woocommerce-Price-amount amount">
+                                                <span class="woocommerce-Price-currencySymbol"></span>{{number_format($product->price)}}</span>đ
+                                        </ins>
+                                    </p>
+                            <!-- .single-product-header -->
+                            <div class="single-product-meta">
+                                
+                                <div class="cat-and-sku">
+                                    <span class="sku_wrapper">SKU:
+                                        <span class="sku">{{$product->code}}</span>
+                                    </span>
+                                </div>
+                                @foreach (json_decode($product->packages->first()->options) as $option)
+                                                @if($option->fmyChipType == "COLOR")
+                                                    <div class="d-flex align-items-center justify-content-start mt-2">
+                                                    @foreach($option->optionList as $color)
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                            viewBox="0 0 50 50">
+                                                            <g transform="translate(-18.001 9)">
+                                                                <rect width="25" height="25" transform="translate(18.001 -9)"
+                                                                    fill="none"></rect>
+                                                                <path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
+                                                                    transform="translate(18.001 -9)" fill="{{$color->optionCode}}">
+                                                                </path>
+                                                                <path
+                                                                    d="M18,1A17,17,0,0,0,5.979,30.019,17,17,0,1,0,30.02,5.979,16.889,16.889,0,0,0,18,1m0-1A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
+                                                                    transform="translate(18.001 -9)" fill="rgba(0,0,0,0.5)"></path>
+                                                            </g>
+                                                        </svg>
+                                                    @endforeach
+                                                    </div>
+                                                @else
+                                                    <div class="d-flex align-items-center justify-content-start mt-2">
+                                                    @foreach($option->optionList as $other)
+                                                    <span class="border border-black rounded-pill option-chips">{{$other->optionLocalName}}</span>
+                                                    @endforeach 
+                                                    </div>
+                                                @endif
+                                                @endforeach
+                            </div>
+                            <!-- .single-product-meta -->
+                            <!--<div class="rating-and-sharing-wrapper">
+                                <div class="woocommerce-product-rating">
+                                    <div class="star-rating">
+                                        <span style="width:100%">Rated
+                                            <strong class="rating">5.00</strong> out of 5 based on
+                                            <span class="rating">1</span> customer rating</span>
+                                    </div>
+                                    <a rel="nofollow" class="woocommerce-review-link" href="#reviews">(<span
+                                            class="count">1</span> customer review)</a>
+                                </div>
+                            </div> -->
+                            <!-- .rating-and-sharing-wrapper -->
+                            <div class="woocommerce-product-details__short-description">
+                                <ul>
+                                @foreach (json_decode($product->packages->first()->json_data, true)['modelList'][0]['keySummary'] as $item) 
+                                                    @if($item['displayType'] == "Feature")                       
+                                                    <li>{!! $item['title'] !!}</li>          
+                                                    @endif          
+                                                    @endforeach
+                                </ul>
+                            </div>
+                            <!-- .woocommerce-product-details__short-description -->
+                            <div class="product-actions-wrapper">
+                                <div class="product-actions">
+                                    
+                                    <!-- .single-product-header -->
+                                    <form enctype="multipart/form-data" method="post" class="cart">
+                                        <div class="quantity">
+                                            <label for="quantity-input">Số lượng</label>
+                                            <input type="number" size="4" class="input-text qty text" title="Qty"
+                                                value="1" name="quantity" id="quantity-input">
+                                        </div>
+                                        <!-- .quantity -->
+                                        <button class="single_add_to_cart_button button alt" value="185"
+                                            name="add-to-cart" type="submit">Thêm giỏ hàng</button>
+                                    </form>
+                                    <!-- .cart -->
+                                    <a class="add-to-compare-link" href="#">So sánh</a>
+                                </div>
+                                <!-- .product-actions -->
+                            </div>
+                            <!-- .product-actions-wrapper -->
+                        </div>
+                        <!-- .entry-summary -->
+                    </div>
+                    <!-- .tm-related-products-carousel -->
+                    <div class="woocommerce-tabs wc-tabs-wrapper">
+                        {!!$product->content!!}
+                    </div>
+                    <!-- .brands-carousel -->
+                </div>
+                <!-- .product -->
+            </main>
+            <!-- #main -->
+        </div>
+        <!-- #primary -->
+    </div>
+    <!-- .row -->
 </div>
 <script>
-	function appendVideoPlayer() {
-		try {
-			const videoContainer = document.querySelector('.video');
-			if (!videoContainer) {
-				console.error('Video container not found');
-				return;
-			}
-
-			const videoData = JSON.parse(videoContainer.getAttribute('data-video-data'));
-			if (!videoData) {
-				console.error('Video data not found');
-				return;
-			}
-
-			const videoElement = document.createElement('video');
-			videoElement.classList.add('video-player');
-			videoElement.setAttribute('playsinline', '');
-			videoElement.setAttribute('loop', '');
-			videoElement.setAttribute('preload', 'auto');
-			videoElement.setAttribute('style', 'width: 100%; height: 100%;');
-
-			const desktopSource = document.createElement('source');
-			desktopSource.setAttribute('src', videoData.desktopSrc);
-			desktopSource.setAttribute('type', 'video/mp4');
-			videoElement.appendChild(desktopSource);
-
-			const mobileSource = document.createElement('source');
-			mobileSource.setAttribute('src', videoData.mobileSrc);
-			mobileSource.setAttribute('type', 'video/mp4');
-			videoElement.appendChild(mobileSource);
-
-			videoElement.autoplay = videoData.autoplay;
-			videoElement.muted = videoData.muted;
-			videoElement.loop = videoData.loop;
-			videoElement.controls = videoData.controls;
-
-			const captionElement = document.createElement('p');
-			captionElement.classList.add('hidden');
-			captionElement.textContent = videoData.caption;
-			videoElement.appendChild(captionElement);
-
-			const figure = document.createElement('figure');
-			figure.classList.add('video--played');
-			figure.style.width = '100%';
-			figure.style.height = '100%';
-			figure.appendChild(videoElement);
-
-			videoContainer.innerHTML = '';
-			videoContainer.appendChild(figure);
-		} catch (error) {
-			console.error('Error appending video player:', error);
-		}
-	}
-	document.addEventListener('DOMContentLoaded', () => {
-		appendVideoPlayer();
-	});
-
-
+    function appendVideoPlayer() {
+        try {
+            const videoContainer = document.querySelector('.video');
+            if (!videoContainer) {
+                console.error('Video container not found');
+                return;
+            }
+            const videoData = JSON.parse(videoContainer.getAttribute('data-video-data'));
+            if (!videoData) {
+                console.error('Video data not found');
+                return;
+            }
+            const videoElement = document.createElement('video');
+            videoElement.classList.add('video-player');
+            videoElement.setAttribute('playsinline', '');
+            videoElement.setAttribute('loop', '');
+            videoElement.setAttribute('preload', 'auto');
+            videoElement.setAttribute('style', 'width: 100%; height: 100%;');
+            const desktopSource = document.createElement('source');
+            desktopSource.setAttribute('src', videoData.desktopSrc);
+            desktopSource.setAttribute('type', 'video/mp4');
+            videoElement.appendChild(desktopSource);
+            const mobileSource = document.createElement('source');
+            mobileSource.setAttribute('src', videoData.mobileSrc);
+            mobileSource.setAttribute('type', 'video/mp4');
+            videoElement.appendChild(mobileSource);
+            videoElement.autoplay = videoData.autoplay;
+            videoElement.muted = videoData.muted;
+            videoElement.loop = videoData.loop;
+            videoElement.controls = videoData.controls;
+            const captionElement = document.createElement('p');
+            captionElement.classList.add('hidden');
+            captionElement.textContent = videoData.caption;
+            videoElement.appendChild(captionElement);
+            const figure = document.createElement('figure');
+            figure.classList.add('video--played');
+            figure.style.width = '100%';
+            figure.style.height = '100%';
+            figure.appendChild(videoElement);
+            videoContainer.innerHTML = '';
+            videoContainer.appendChild(figure);
+        } catch (error) {
+            console.error('Error appending video player:', error);
+        }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        appendVideoPlayer();
+    });
 </script>
 @endsection

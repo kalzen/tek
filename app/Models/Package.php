@@ -11,6 +11,6 @@ class Package extends Model
     use HasFactory;
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withTimestamps();
+        return $this->belongsToMany(Product::class, 'package_product', 'package_id', 'product_id')->withTimestamps();
     }
 }

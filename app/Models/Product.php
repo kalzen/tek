@@ -41,6 +41,10 @@ class Product extends Model
     {
         return $this->belongsToMany(Catalogue::class)->withTimestamps();
     }
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class)->withTimestamps();
+    }
     public function formulaValue($formula)
     {
         $expression = str_replace('B', (int)$this->sale_price, str_replace('A', (int)$this->price , $formula));

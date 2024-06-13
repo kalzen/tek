@@ -1,0 +1,20 @@
+.button-auto-loop, .swiper-button-prev, .swiper-button-next
+{
+    display: none;
+}
+.image--hide
+{
+    display: none;
+}
+.feature-benefit__swiper
+{
+    display: none;
+}
+.image__preview 
+{
+    display: none;
+}
+.indicator 
+{
+    display: none;
+}
