@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <title>Techmarket HTML</title>
+    <title>Samfan</title>
     <link rel="stylesheet" type="text/css" href="{{asset('samfan/assets/css/bootstrap.min.css')}}" media="all" />
     <link rel="stylesheet" type="text/css" href="{{asset('samfan/assets/css/font-awesome.min.css')}}" media="all" />
     <link rel="stylesheet" type="text/css" href="{{asset('samfan/assets/css/bootstrap-grid.min.css')}}" media="all" />
@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('samfan/assets/css/product-detail.css')}}" media="all" />
     @endif
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900" rel="stylesheet">
-    <link rel="shortcut icon" href="{{asset('samfan/assets/images/fav-icon.png')}}">
+    <!--<link rel="shortcut icon" href="{{asset('samfan/assets/images/fav-icon.png')}}"> -->
 </head>
 
 <body class="woocommerce-active @if(Route::is('product.*') ) single-product full-width normal @else page-template-template-homepage-v1 @endif can-uppercase">
