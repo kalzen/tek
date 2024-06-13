@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Testimonial;
 use App\Models\Team;
+use App\Models\Package;
 use DB;
 
 class HomeController extends Controller
@@ -19,8 +20,9 @@ class HomeController extends Controller
     public function index()
     {
         $slides = Slide::orderBy('ordering','asc')->paginate();
-        $catalogues = Catalogue::All();
+        $catalogues = Catalogue::orderBy('id','asc')->take(5)->get();
         $testimonials = Testimonial::All();
+        
         $teams = Team::All();
         $posts = Post::latest()->withCount(['images'])->having('images_count','>',0)->active()->take(5)->get();
         return view('home.index',['slides'=> $slides, 'posts'=>$posts, 'testimonials' => $testimonials, 'teams' => $teams, 'catalogues' => $catalogues]);

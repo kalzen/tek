@@ -82,6 +82,7 @@
                         <div class="woocommerce columns-7">
                             <div class="products">
                                 @foreach ($packages as $package)
+                                @if ($package->products->count())
                                     <div class="product first">
                                         <div class="yith-wcwl-add-to-wishlist">
                                             <a href="#" rel="nofollow" class="add_to_wishlist"> Yêu thích</a>
@@ -127,6 +128,7 @@
                                         </div>
                                         <!-- .hover-area -->
                                     </div>
+                                @endif
                                 @endforeach
                             </div>
                             <!-- .products -->
