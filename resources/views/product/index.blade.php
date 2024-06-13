@@ -189,6 +189,7 @@
                         <div class="woocommerce columns-1">
                             <div class="products">
                             @foreach ($packages as $package)
+                            @if ($package->products->count())
                                 <div class="product list-view-large first ">
                                     <div class="media">
                                         <img width="224" height="197" alt=""
@@ -269,6 +270,7 @@
                                     <!-- .media -->
                                 </div>
                                 <!-- .product -->
+                                 @endif
                             @endforeach
                             </div>
                             <!-- .products -->
