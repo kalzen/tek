@@ -18,7 +18,7 @@
         <div class="d-flex">
             <span id="package-{{$product->packages->first()->id}}" class="d-flex align-items-center fw-bold fs-4" style="font-weight: 600;font-size: 1.3rem;">{{number_format($product->price)}}</span>₫
            <!-- <a class="add-to-compare-link" href="#">So sánh</a> -->
-            <a href="#" id="buynow" data-model="" class="btn btn-primary cta buy rounded-pill ms-3">Mua ngay</a>
+            <a href="#" id="buynow" data-model="{{$product->code}}" class="btn btn-primary cta buy rounded-pill ms-3">Mua ngay</a>
         </div>
         </div>
     </div>
