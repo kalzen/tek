@@ -113,30 +113,7 @@
                                                         class="woocommerce-Price-currencySymbol"></span>{{number_format($package->products->first()->price)}}</span>đ
                                             </span>
                                             <h2 class="woocommerce-loop-product__title">{{$package->name}}</h2>
-                                            @if(count(json_decode($package->options)))
-                                            @foreach (json_decode($package->options) as $option)
-                                                @if($option->fmyChipType == "COLOR")
-                                                    <div class="d-flex align-items-center justify-content-center mt-2">
-                                                    @foreach($option->optionList as $color)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                                            viewBox="0 0 50 50">
-                                                            <g transform="translate(-18.001 9)">
-                                                                <rect width="25" height="25" transform="translate(18.001 -9)"
-                                                                    fill="none"></rect>
-                                                                <path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
-                                                                    transform="translate(18.001 -9)" fill="{{$color->optionCode}}">
-                                                                </path>
-                                                                <path
-                                                                    d="M18,1A17,17,0,0,0,5.979,30.019,17,17,0,1,0,30.02,5.979,16.889,16.889,0,0,0,18,1m0-1A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
-                                                                    transform="translate(18.001 -9)" fill="rgba(0,0,0,0.5)"></path>
-                                                            </g>
-                                                        </svg>
-                                                    @endforeach
                                             
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                            @endif
                                         </a>
                                         <!-- .woocommerce-LoopProduct-link -->
                                         <div class="hover-area">
