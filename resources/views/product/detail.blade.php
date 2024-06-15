@@ -164,12 +164,14 @@
                                 <div class="spec">
                                 <h3>Thông số kĩ thuật</h3>
                                 <ul>
+                                    @if (isset(json_decode($product->spec, true)['modelList'][0]['spechighlight']))
                                     @foreach (json_decode($product->spec, true)['modelList'][0]['spechighlight'] as $item)
                                         <li>
                                             <span class="name">{{$item['attributesName']}}</span>
                                             <span class="value">{{$item['specIconValue']}}</span>
                                         </li>
                                     @endforeach
+                                    @endif
                                 </ul>
                                 </div>
                             </div>
