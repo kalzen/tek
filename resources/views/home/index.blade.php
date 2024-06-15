@@ -113,7 +113,7 @@
                                                         class="woocommerce-Price-currencySymbol"></span>{{number_format($package->products->first()->price)}}</span>đ
                                             </span>
                                             <h2 class="woocommerce-loop-product__title">{{$package->name}}</h2>
-                                            @if($package->options)
+                                            @if(count(json_decode($package->options)))
                                             @foreach (json_decode($package->options) as $option)
                                                 @if($option->fmyChipType == "COLOR")
                                                     <div class="d-flex align-items-center justify-content-center mt-2">
