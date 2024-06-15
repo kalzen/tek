@@ -341,6 +341,7 @@ class ProductController extends Controller
             } else {
                 $cart[$model] = [
                     'quantity' => 1,
+                    'code' => $request->model
                 ];
             }
 
@@ -373,8 +374,9 @@ class ProductController extends Controller
                     foreach (json_decode($package->json_data, true)['modelList'] as $item)
                     {
                         
-                        if ($item['modelCode'] == $model)
+                        if ($item['modelCode'] == $model['code'])
                         {
+                            //return response()->json([$model]);
                             $price_html = number_format($item['price']);
                             $price = $item['price'];
                         }
@@ -395,6 +397,7 @@ class ProductController extends Controller
                 'total_items' => count($cart),
                 'html' => $html,
                 'total_price' => $total_price,
+                'model' => $model
             ]);
             return $response;
         
