@@ -142,7 +142,7 @@
                                                 <p id="order_comments_field" class="form-row notes">
                                                     <label class="" for="order_comments">Ghi chú</label>
                                                     <textarea cols="5" rows="2"
-                                                        placeholder="Notes about your order, e.g. special notes for delivery."
+                                                        placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: ghi chú đặc biệt để giao hàng."
                                                         id="order_comments" class="input-text "
                                                         name="order_comments"></textarea>
                                                 </p>
