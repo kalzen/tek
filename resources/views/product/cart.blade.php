@@ -88,7 +88,7 @@
                                                                     </tr>
                                                                     <tr class="shipping">
                                                                         <th>Phí vận chuyển</th>
-                                                                        <td data-title="Shipping">Flat rate</td>
+                                                                       <!-- <td data-title="Shipping">Flat rate</td> -->
                                                                     </tr>
                                                                     <tr class="order-total">
                                                                         <th>Tổng cộng</th>
@@ -104,7 +104,7 @@
                                                         </table>
                                                         <!-- .shop_table shop_table_responsive -->
                                                         <div class="wc-proceed-to-checkout">
-                                                            <form class="woocommerce-shipping-calculator" method="post" action="#">
+                                                        <!--    <form class="woocommerce-shipping-calculator" method="post" action="#">
                                                               <p>
                                                                     <a class="shipping-calculator-button" data-toggle="collapse" href="#shipping-form" aria-expanded="false" aria-controls="shipping-form">Calculate shipping</a>
                                                                 </p>
@@ -182,7 +182,7 @@
                                                                         </p>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                            </form> -->
                                                             <!-- .wc-proceed-to-checkout -->
                                                             <a class="checkout-button button alt wc-forward" href="{{route('checkout')}}">
 				Tiến hành thanh toán</a>

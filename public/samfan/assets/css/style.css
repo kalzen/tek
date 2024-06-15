@@ -22811,9 +22811,6 @@ p.available-on-backorder {
     width: 100%;
     padding: 18px 10px;
 }
-.full-width.extended.single-product .quantity {
-    margin-bottom: 27px;
-}
 .full-width.extended.single-product p.stock {
     display: none;
 }
@@ -30974,7 +30971,6 @@ form.track_order input[type="submit"] {
 }
 .option-chips
 {
-    border: 1px solid #7f7f7f;
     border-radius: 99px;
     padding: 4px 12px;
     font-weight: 700;
@@ -30987,6 +30983,7 @@ form.track_order input[type="submit"] {
 {
     color: #222;
     border-color: #222;
+    border: 1px solid ;
 }
 .summary  .price
 {

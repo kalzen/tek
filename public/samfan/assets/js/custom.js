@@ -51,17 +51,20 @@ $('.add_to_cart_button').click(function(){
         url: url_data,
         dataType: 'json',
         success: function (data) {
-            // $('#package-' + package).html(data.price);
-            // $('#cart-'+package).data('model', data.model);
             $('.cart-contents .count').html(data.total_items);
-            console.log(data);
-        },error:function(){ 
-             //console.log(data);
+            getCart();
+            alert('Thêm giỏ hàng thành công');
+        },
+        error: function(xhr, status, error) {
+            console.error('Error adding to cart:', error);
+            alert('Đã có lỗi xảy ra, vui lòng thử lại sau.');
         }
     });
 });
-$(document).ready(function() {   
+function getCart()
+    {
     var url_data = $('#cart_url').val();
+    $('.cart_list').html('');
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
         url: url_data,
@@ -71,9 +74,20 @@ $(document).ready(function() {
             // $('#cart-'+package).data('model', data.model);
             $('.cart_list').append(data.html);
             $('.cart-contents .count').html(data.total_items);
+            $('#totalPrice').html(data.total_price);
             console.log(data);
         },error:function(){ 
              //console.log(data);
         }
     });
+}
+$('#checkout').click(function(e)
+{
+    e.preventDefault();
+    alert("Cảm ơn bạn đã đặt hàng tại samfan");
+    window.location.href = "clearcookies";
+});
+$(document).ready(function() {   
+    
+    getCart();
 });

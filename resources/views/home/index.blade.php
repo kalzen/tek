@@ -140,7 +140,7 @@
                                         </a>
                                         <!-- .woocommerce-LoopProduct-link -->
                                         <div class="hover-area">
-                                            <a class="button" href="#">Thêm giỏ hàng</a>
+                                            <a class="button add_to_cart_button" data-model="{{$package->products->first()->code}}" href="#">Thêm giỏ hàng</a>
                                             <a class="add-to-compare-link" href="#">So sánh</a>
                                         </div>
                                         <!-- .hover-area -->

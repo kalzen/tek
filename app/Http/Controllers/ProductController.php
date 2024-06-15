@@ -386,11 +386,11 @@ class ProductController extends Controller
             $total_price = 0;
             foreach ($cart as $modelCode => $model) {
                 $product = Product::where('code', $modelCode)->first();
-                
+                $price = 0;
                 if ($product) {
                     $package = $product->packages->first();
                     $price_html = '';
-                    $price = 0;
+                    
                     foreach (json_decode($package->json_data, true)['modelList'] as $item)
                     {
                         
@@ -416,7 +416,7 @@ class ProductController extends Controller
             $response = response()->json([
                 'total_items' => count($cart),
                 'html' => $html,
-                'total_price' => $total_price,
+                'total_price' => number_format($total_price),
                 'model' => $model
             ]);
             return $response;
@@ -433,7 +433,7 @@ class ProductController extends Controller
                 $package = $product->packages->first();
                 $price = 0;
                 foreach (json_decode($package->json_data, true)['modelList'] as $item) {
-                    if ($item['modelCode'] == $model) {
+                    if ($item['modelCode'] == $model['code']) {
                         $price = $item['price'];
                     }
                 }
@@ -445,6 +445,7 @@ class ProductController extends Controller
                 $total_price += $price * $model['quantity'];
             }
         }
+        //dd($cartData);
         return view('product.cart', compact('cartData', 'total_price', 'cart'));
     }
     public function checkout()
@@ -458,7 +459,7 @@ class ProductController extends Controller
                 $package = $product->packages->first();
                 $price = 0;
                 foreach (json_decode($package->json_data, true)['modelList'] as $item) {
-                    if ($item['modelCode'] == $model) {
+                    if ($item['modelCode'] == $model['code']) {
                         $price = $item['price'];
                     }
                 }
