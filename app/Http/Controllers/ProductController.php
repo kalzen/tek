@@ -139,7 +139,7 @@ class ProductController extends Controller
         // $type ="07010000";
         foreach ($categories as $category)
         {
-            $response = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/finder/global?type='.$category['type'].'&siteCode=vn&start=1&num=10&sort=onlineavailability&onlyFilterInfoYN=N&keySummaryYN=Y&specHighlightYN=Y&companyCode=vn_congnghed&pfType=G&familyId=');
+            $response = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/finder/global?type='.$category['type'].'&siteCode=vn&start=1&num=100&sort=onlineavailability&onlyFilterInfoYN=N&keySummaryYN=Y&specHighlightYN=Y&companyCode=vn_congnghed&pfType=G&familyId=');
 
             $json = json_decode($response->getBody(), true);
             DB::beginTransaction();
