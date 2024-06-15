@@ -113,6 +113,7 @@
                                                         class="woocommerce-Price-currencySymbol"></span>{{number_format($package->products->first()->price)}}</span>đ
                                             </span>
                                             <h2 class="woocommerce-loop-product__title">{{$package->name}}</h2>
+                                            @if($package->options)
                                             @foreach (json_decode($package->options) as $option)
                                                 @if($option->fmyChipType == "COLOR")
                                                     <div class="d-flex align-items-center justify-content-center mt-2">
@@ -131,9 +132,11 @@
                                                             </g>
                                                         </svg>
                                                     @endforeach
+                                            
                                                     </div>
                                                 @endif
                                             @endforeach
+                                            @endif
                                         </a>
                                         <!-- .woocommerce-LoopProduct-link -->
                                         <div class="hover-area">
