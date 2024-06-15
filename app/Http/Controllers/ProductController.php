@@ -248,6 +248,25 @@ class ProductController extends Controller
         })->paginate();
         return view('product.index',compact('products','catalogues'));
     }
+    public function clearCookie ()
+    {
+        try {
+            // Clear all cookies
+            Cookie::queue(Cookie::forget('cart'));
+
+            // Log the success message
+            Log::info('All cookies have been cleared successfully.');
+
+            // Redirect the user to a suitable page or return a success message
+            return redirect()->route('product.index')->with('success', 'All cookies have been cleared.');
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error('Error in ProductController@clearCookie: ' . $e->getMessage());
+
+            // Return an error message to the UI
+            return redirect()->route('product.index')->with('error', 'An error occurred while clearing the cookies.');
+        }
+    }
     public function detail($alias)
     {
         $product = Product::active()->where('slug',$alias)->firstOrFail();
