@@ -13,6 +13,28 @@ $('.getprice').click(function(){
         success: function (data) {
             $('#package-' + package).html(data.price);
             $('#cart-'+package).data('model', data.model);
+            $('#buynow').data('model', data.model);
+            console.log(data);
+        },error:function(){ 
+             //console.log(data);
+        }
+    });
+});
+$('#buynow').click(function(e){
+    e.preventDefault();
+    console.log('ok');
+    var model = $(this).data('model');
+    var url_get = $('#addtocart_url').val();
+    var url_data = url_get+"?model="+model;
+    $.ajax({
+        type: 'GET', //THIS NEEDS TO BE GET
+        url: url_data,
+        dataType: 'json',
+        success: function (data) {
+            // $('#package-' + package).html(data.price);
+            // $('#cart-'+package).data('model', data.model);
+            $('.cart-contents .count').html(data.total_items);
+            window.location.href = "/gio-hang";
             console.log(data);
         },error:function(){ 
              //console.log(data);
