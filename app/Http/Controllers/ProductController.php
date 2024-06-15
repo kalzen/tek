@@ -13,6 +13,7 @@ use DB;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cookie;
 class ProductController extends Controller
 {
     public function index()
@@ -258,7 +259,7 @@ class ProductController extends Controller
             Log::info('All cookies have been cleared successfully.');
 
             // Redirect the user to a suitable page or return a success message
-            return redirect()->route('product.index')->with('success', 'All cookies have been cleared.');
+            return redirect()->route('index')->with('success', 'All cookies have been cleared.');
         } catch (\Exception $e) {
             // Log the error message
             Log::error('Error in ProductController@clearCookie: ' . $e->getMessage());
