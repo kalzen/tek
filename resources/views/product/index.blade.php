@@ -80,6 +80,7 @@
                                                     
                                                 </a>
                                                 <!-- .brand -->
+                                                @if(isset($package->options) && $package->options!= null)
                                                 @foreach (json_decode($package->options) as $option)
                                                 @if($option->fmyChipType == "COLOR")
                                                     <div class="d-flex align-items-center justify-content-start mt-2">
@@ -107,6 +108,7 @@
                                                     </div>
                                                 @endif
                                                 @endforeach
+                                                @endif
                                                 <div class="woocommerce-product-details__short-description mt-2">
                                                     <ul>
                                                     @foreach (json_decode($package->json_data, true)['modelList'][0]['uspDescription'] as $item) 
