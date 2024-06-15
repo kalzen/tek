@@ -23,11 +23,11 @@
     <link rel="stylesheet" type="text/css" href="https://www.samsung.com/etc.clientlibs/samsung/clientlibs/consumer/global/clientlib-templates/page" media="all" />
     <link rel="stylesheet" type="text/css" href="{{asset('samfan/assets/css/product-detail.css')}}" media="all" />
     @endif
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <!--<link rel="shortcut icon" href="{{asset('samfan/assets/images/fav-icon.png')}}"> -->
 </head>
 
-<body class="woocommerce-active @if(Route::is('product.*') ) single-product full-width normal @else page-template-template-homepage-v1 @endif can-uppercase">
+<body class="woocommerce-active @if(Route::is('product.detail') || Route::is('cart.index') || Route::is('checkout') ) single-product full-width extended @elseif(Route::is('index') )  page-template-template-homepage-v1 @endif can-uppercase">
     <div id="page" class="hfeed site">
         <div class="top-bar top-bar-v1">
             <div class="col-full">
@@ -55,11 +55,12 @@
         </div>
         <!-- #content -->
          @include('partials.footer')
-        
+        <input type="hidden" id="getprice_url" value="{{route('getPrice')}}">
+        <input type="hidden" id="addtocart_url" value={{route('addtocart')}}>
+        <input type="hidden" id="cart_url" value="{{route('cart')}}">
         <!-- .site-footer -->
     </div>
     <script type="text/javascript" src="{{asset('samfan/assets/js/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('samfan/assets/js/tether.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('samfan/assets/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('samfan/assets/js/jquery-migrate.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('samfan/assets/js/hidemaxlistitem.min.js')}}"></script>
@@ -72,6 +73,8 @@
     <script type="text/javascript" src="{{asset('samfan/assets/js/pace.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('samfan/assets/js/slick.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('samfan/assets/js/scripts.js')}}"></script>
+    <script type="text/javascript" src="{{asset('samfan/assets/js/custom.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     @if(Route::is('product.*') ) 
     <!-- <script type="text/javascript" src="{{asset('samfan/assets/js/scripts.js')}}"></script> -->
     @endif

@@ -139,7 +139,7 @@ class ProductController extends Controller
         // $type ="07010000";
         foreach ($categories as $category)
         {
-            $response = $client->get('https://searchapi.samsung.com/v6/front/epp/v2/product/finder/global?type='.$category['type'].'&siteCode=vn&start=1&num=100&sort=onlineavailability&onlyFilterInfoYN=N&keySummaryYN=Y&specHighlightYN=Y&companyCode=vn_congnghed&pfType=G&familyId=');
+            $response = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/finder/global?type='.$category['type'].'&siteCode=vn&start=1&num=10&sort=onlineavailability&onlyFilterInfoYN=N&keySummaryYN=Y&specHighlightYN=Y&companyCode=vn_congnghed&pfType=G&familyId=');
 
             $json = json_decode($response->getBody(), true);
             DB::beginTransaction();
@@ -147,6 +147,7 @@ class ProductController extends Controller
                         DB::table('catalogues')->updateOrInsert([
                             'name' => $category['name'],
                             'slug' => Str::slug($category['name']),
+                            'type' => $category['type'],
                         ]);
                         DB::commit();
                     
@@ -166,7 +167,10 @@ class ProductController extends Controller
                             'name' => $product['fmyEngName'],
                             'options' => json_encode($product['chipOptions']),
                             'catalogue_id' => $cat->id,
-                            'json_data' => json_encode($product)
+                            'json_data' => json_encode($product),
+                            'benefits' => json_encode($product['localBenefitList']),
+                            'group_id' => $product['productGroupId'],
+
                         ]);
                         DB::commit();
                     
@@ -179,21 +183,7 @@ class ProductController extends Controller
                 foreach ($product['modelList'] as $key => $value)
                 {
                     $data['price'] = $value['price'];
-                    if (isset($value['galleryImage']))
-                    {
-                        if (count($value['galleryImage']) > 1)
-                        {
-                            $images =  implode(',',$value['galleryImage']);
-                        }
-                        else
-                        {
-                            $images =  $value['thumbUrl'];
-                        }
-                    }
-                    else
-                    {
-                        $images = $value['thumbUrl'];
-                    }
+                    $images = $value['thumbUrl'];
                     $data['title'] =  $value['displayName'];
                     $data['code'] =  $value['modelCode'];
                     $data['description'] = json_encode($value['marketingMessage']);
@@ -284,8 +274,11 @@ class ProductController extends Controller
             if ($benefitElement) {                
                 $benefitHtml = $benefitElement->C14N();        
                 $benefitHtml = str_replace('data-desktop-src','src',$benefitHtml);
+                $benefitHtml = str_replace('data-src-pc','src',$benefitHtml);
                 $benefitHtml = preg_replace('/\$.*?\$/m', '', $benefitHtml);        
-                //var_dump($benefitHtml);            
+                //var_dump($benefitHtml);        
+                $product->content = $benefitHtml;
+                $product->save();    
             } else {                
                 Log::error('Benefit element not found in the HTML.');            
             }
@@ -293,19 +286,167 @@ class ProductController extends Controller
             Log::error('Error in ProductController@detail: ' . $e->getMessage());            
             // Display an error message to the UI or handle the exception in an appropriate way        
             }
-        
-        $product->content = $benefitHtml;
-        $product->save();
         }
         if ($product->json_data == '')
         {
             $client = new Client();
             $content = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/card/detail/global?siteCode=vn&modelList='.$product->code.'&saleSkuYN=N&onlyRequestSkuYN=N&keySummaryYN=N&keySpecYN=N&quicklookYN=N');
-            $product->json_data = $content->getBody();
+            $json = json_decode($content->getBody(), true);
+            $product->json_data =  json_encode($json['response']['resultData']['productList'][0]);
+            $product->save();
+        }
+        if ($product->spec == '')
+        {
+            $client = new Client();
+            $content = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/spec/detail?siteCode=vn&modelList='.$product->code);
+            $json = json_decode($content->getBody(), true);
+            $product->spec =  json_encode($json['response']['resultData']);
             $product->save();
         }
         DB::table('products')->where('id',$product->id)->increment('viewed');
 
         return view('product.detail',compact('product'));
+    }
+    public function getPrice(Request $request)
+    {
+        $package = Package::find($request->package);
+        
+        foreach (json_decode($package->json_data)->modelList as $model)
+        {
+            foreach ($model->fmyChipList as $chips)
+            {
+                if ($chips->fmyChipType == $request->name)
+                {   
+                    if ($chips->fmyChipCode == $request->value )
+                    {
+                        $data = array(
+                            'model' => $model->modelCode,
+                            'price' => number_format($model->price)
+                        );
+                    return response()->json($data);
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public function addtocart(Request $request)
+    {
+        try {
+            $cart = json_decode(request()->cookie('cart'), true) ?? [];
+            $model = $request->model;
+
+            if (array_key_exists($model, $cart)) {
+                $cart[$model]['quantity']++;
+            } else {
+                $cart[$model] = [
+                    'quantity' => 1,
+                ];
+            }
+
+            $response = response()->json([
+                'total_items' => count($cart),
+            ]);
+
+            return $response->withCookie(cookie()->forever('cart', json_encode($cart)));
+        } catch (\Exception $e) {
+            Log::error('Error in ProductController@addtocart: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'An error occurred while adding the item to the cart.',
+            ], 500);
+        }
+    }
+    public function cart()
+    {
+      
+            $cart = json_decode(request()->cookie('cart'), true) ?? [];
+            $cartData = [];
+            $html ='';
+            $total_price = 0;
+            foreach ($cart as $modelCode => $model) {
+                $product = Product::where('code', $modelCode)->first();
+                
+                if ($product) {
+                    $package = $product->packages->first();
+                    $price_html = '';
+                    $price = 0;
+                    foreach (json_decode($package->json_data, true)['modelList'] as $item)
+                    {
+                        
+                        if ($item['modelCode'] == $model)
+                        {
+                            $price_html = number_format($item['price']);
+                            $price = $item['price'];
+                        }
+                    }
+                    $html .= '<li class="woocommerce-mini-cart-item mini_cart_item">
+                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="65" data-product_sku=""></a>
+                                <a href="single-product-sidebar.html">
+                                    <img src="'.$product->images->first()->url.'" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">'.$product->title.'
+                                </a>
+                                <span class="quantity">'.$model['quantity'].'×
+                                    <span class="woocommerce-Price-amount amount">'.$price_html.'</span>
+                                </span>
+                            </li>';
+                }
+                $total_price = $price*$model['quantity'];
+            }
+            $response = response()->json([
+                'total_items' => count($cart),
+                'html' => $html,
+                'total_price' => $total_price,
+            ]);
+            return $response;
+        
+    }
+    public function cartIndex()
+    {
+        $cart = json_decode(request()->cookie('cart'), true) ?? [];
+        $cartData = [];
+        $total_price = 0;
+        foreach ($cart as $modelCode => $model) {
+            $product = Product::where('code', $modelCode)->first();
+            if ($product) {
+                $package = $product->packages->first();
+                $price = 0;
+                foreach (json_decode($package->json_data, true)['modelList'] as $item) {
+                    if ($item['modelCode'] == $model) {
+                        $price = $item['price'];
+                    }
+                }
+                $cartData[] = [
+                    'product' => $product,
+                    'quantity' => $model['quantity'],
+                    'price' => $price,
+                ];
+                $total_price += $price * $model['quantity'];
+            }
+        }
+        return view('product.cart', compact('cartData', 'total_price', 'cart'));
+    }
+    public function checkout()
+    {
+        $cart = json_decode(request()->cookie('cart'), true) ?? [];
+        $cartData = [];
+        $total_price = 0;
+        foreach ($cart as $modelCode => $model) {
+            $product = Product::where('code', $modelCode)->first();
+            if ($product) {
+                $package = $product->packages->first();
+                $price = 0;
+                foreach (json_decode($package->json_data, true)['modelList'] as $item) {
+                    if ($item['modelCode'] == $model) {
+                        $price = $item['price'];
+                    }
+                }
+                $cartData[] = [
+                    'product' => $product,
+                    'quantity' => $model['quantity'],
+                    'price' => $price,
+                ];
+                $total_price += $price * $model['quantity'];
+            }
+        }
+        return view('product.checkout', compact('cartData', 'total_price', 'cart'));
     }
 }

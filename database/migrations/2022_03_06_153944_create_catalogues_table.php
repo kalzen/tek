@@ -20,6 +20,7 @@ class CreateCataloguesTable extends Migration
             $table->unsignedInteger('parent_id')->nullable()->default(null);
             $table->string('description')->nullable()->default(null);
             $table->longtext('content')->nullable()->default(null);
+            $table->string('type')->nullable()->default(null);
             $table->timestamps();
         });
     }

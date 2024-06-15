@@ -19,6 +19,8 @@ class CreatePackagesTable extends Migration
             $table->text('name')->nullable()->default(null);
             $table->integer('catalogue_id')->default(0);
             $table->longText('json_data')->nullable()->default(null);
+            $table->text('benefits')->nullable()->default(null);
+            $table->text('group_id')->nullable()->default(null);
             $table->timestamps();
         });
     }

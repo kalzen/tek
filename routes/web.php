@@ -42,10 +42,11 @@ Route::get('/danh-muc-tin-tuc/{alias}', [App\Http\Controllers\PostController::cl
 Route::get('/tim-kiem-tin-tuc', [App\Http\Controllers\PostController::class, 'search'])->name('post.search');
 Route::get('/tin-tuc/{alias}', [App\Http\Controllers\PostController::class, 'detail'])->name('post.detail');
 Route::get('/crawl', [App\Http\Controllers\ProductController::class, 'crawl'])->name('product.crawl');
-
-Route::prefix('smartphones')->group(function () {
-    return redirect()->to('https://samfan.store/danh-muc/smartphones');
-});
+Route::get('/getPrice', [App\Http\Controllers\ProductController::class, 'getPrice'])->name('getPrice');
+Route::get('/addtocart', [App\Http\Controllers\ProductController::class, 'addtocart'])->name('addtocart');
+Route::get('/cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('cart');
+Route::get('/gio-hang', [App\Http\Controllers\ProductController::class, 'cartIndex'])->name('cart.index');
+Route::get('/thanh-toan', [App\Http\Controllers\ProductController::class, 'checkout'])->name('checkout');
 Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('', [DashboardController::class, 'index'])->name('index');
     Route::get('logout', [DashboardController::class, 'logout'])->name('logout');

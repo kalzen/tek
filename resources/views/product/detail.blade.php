@@ -11,7 +11,20 @@
 @section('styles')
 @endsection
 @section('content')
+<div class="topnav">
+    <div class="col-full">
+    <div class="d-flex bg-dark justify-content-between align-items-center">
+        <h1 class="headline-text">{{$product->title}}</h1>
+        <div class="d-flex">
+            <span id="package-{{$product->packages->first()->id}}" class="d-flex align-items-center fw-bold fs-4" style="font-weight: 600;font-size: 1.3rem;">{{number_format($product->price)}}</span>₫
+           <!-- <a class="add-to-compare-link" href="#">So sánh</a> -->
+            <a href="#" class="btn btn-primary cta buy rounded-pill ms-3">Mua ngay</a>
+        </div>
+        </div>
+    </div>
+</div>
 <div class="col-full">
+    
     <div class="row">
         <!-- .woocommerce-breadcrumb -->
         <div id="primary" class="content-area">
@@ -19,7 +32,7 @@
                 <div class="product product-type-simple">
                     <div class="single-product-wrapper">
                         <div class="product-images-wrapper thumb-count-4">
-                            <!-- .onsale -->
+                            
                             <div id="techmarket-single-product-gallery"
                                 class="techmarket-single-product-gallery techmarket-single-product-gallery--with-images techmarket-single-product-gallery--columns-4 images"
                                 data-columns="4">
@@ -30,31 +43,43 @@
                                         data-columns="4">
                                         <a href="#" class="woocommerce-product-gallery__trigger">🔍</a>
                                         <figure class="woocommerce-product-gallery__wrapper ">
-                                            @foreach ($product->images as $image)
-                                            
-                                            
-                                            <div data-thumb="{{$image->url}}"
-                                                class="woocommerce-product-gallery__image">
-                                                <a href="{{$image->url}}" tabindex="0">
-                                                    <img width="600" height="600"
-                                                        src="{{$image->url}}"
-                                                        class="attachment-shop_single size-shop_single wp-post-image"
-                                                        alt="">
-                                                </a>
-                                            </div>
+                                        @foreach (json_decode($product->json_data, true)['modelList'] as $model )
+                                        
+                                        @if ($model['modelCode'] == $product->code)
+                                            @foreach($model['galleryImageLarge'] as $image)
+                                            <div data-thumb="{{$image}}"
+                                            class="woocommerce-product-gallery__image">
+                                            <a href="{{$image}}" target="__blank" tabindex="0">
+                                                <img width="600" height="600" src="{{$image}}"
+                                                    class="attachment-shop_single size-shop_single wp-post-image"
+                                                    alt="">
+                                            </a>
+                                        </div>
                                             @endforeach
+                                        @endif
+                                    @endforeach
                                         </figure>
                                     </div>
                                     <!-- .woocommerce-product-gallery -->
                                 </div>
                                 <!-- .techmarket-single-product-gallery-images -->
-                                <div class="techmarket-single-product-gallery-thumbnails" data-ride="tm-slick-carousel" data-wrap=".techmarket-single-product-gallery-thumbnails__wrapper" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;vertical&quot;:true,&quot;verticalSwiping&quot;:true,&quot;focusOnSelect&quot;:true,&quot;touchMove&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-up\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-down\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;asNavFor&quot;:&quot;#techmarket-single-product-gallery .woocommerce-product-gallery__wrapper&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:765,&quot;settings&quot;:{&quot;vertical&quot;:false,&quot;horizontal&quot;:true,&quot;verticalSwiping&quot;:false,&quot;slidesToShow&quot;:4}}]}">
+                                <div class="techmarket-single-product-gallery-thumbnails" data-ride="tm-slick-carousel"
+                                    data-wrap=".techmarket-single-product-gallery-thumbnails__wrapper"
+                                    data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;horizontal&quot;:true,&quot;horizontalSwiping&quot;:true,&quot;focusOnSelect&quot;:true,&quot;touchMove&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;asNavFor&quot;:&quot;#techmarket-single-product-gallery .woocommerce-product-gallery__wrapper&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:765,&quot;settings&quot;:{&quot;horizontal&quot;:false,&quot;horizontal&quot;:true,&quot;verticalSwiping&quot;:false,&quot;slidesToShow&quot;:4}}]}">
                                     <figure class="techmarket-single-product-gallery-thumbnails__wrapper">
-                                        @foreach($product->images as $image)
-                                        <figure data-thumb="{{$image->url}}" class="techmarket-wc-product-gallery__image">
-                                            <img width="180" height="180" src="{{$image->url}}" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">
-                                        </figure>
-                                        @endforeach
+                                    @foreach (json_decode($product->json_data, true)['modelList'] as $model )
+                                        
+                                            @if ($model['modelCode'] == $product->code)
+                                                @foreach($model['galleryImageLarge'] as $image)
+                                                    <figure data-thumb="{{$image}}"
+                                                        class="techmarket-wc-product-gallery__image">
+                                                        <img width="100" height="100" src="{{$image}}"
+                                                            class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image"
+                                                            alt="">
+                                                    </figure>
+                                                @endforeach
+                                            @endif
+                                    @endforeach
                                     </figure>
                                     <!-- .techmarket-single-product-gallery-thumbnails__wrapper -->
                                 </div>
@@ -64,51 +89,49 @@
                         </div>
                         <!-- .product-images-wrapper -->
                         <div class="summary entry-summary">
-                            <div class="single-product-header">
-                                <h1 class="product_title entry-title">{{$product->title}}</h1>
-                                <a class="add-to-wishlist" href="#"> Yêu thích</a>
-                            </div>
-                            <p class="price">
-                                        <ins>
-                                            <span class="woocommerce-Price-amount amount">
-                                                <span class="woocommerce-Price-currencySymbol"></span>{{number_format($product->price)}}</span>đ
-                                        </ins>
-                                    </p>
+                        <h3 class="product-title">{{$product->title}}</h3>
+                            <!--<p class="price">
+                                <ins>
+                                    <span class="woocommerce-Price-amount amount">
+                                        <span
+                                            class="woocommerce-Price-currencySymbol"></span>{{number_format($product->price)}}</span>₫
+                                </ins>
+                            </p> -->
                             <!-- .single-product-header -->
                             <div class="single-product-meta">
-                                
+
                                 <div class="cat-and-sku">
-                                    <span class="sku_wrapper">SKU:
+                                    <span class="sku_wrapper">
                                         <span class="sku">{{$product->code}}</span>
                                     </span>
                                 </div>
                                 @foreach (json_decode($product->packages->first()->options) as $option)
-                                                @if($option->fmyChipType == "COLOR")
-                                                    <div class="d-flex align-items-center justify-content-start mt-2">
-                                                    @foreach($option->optionList as $color)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                                            viewBox="0 0 50 50">
-                                                            <g transform="translate(-18.001 9)">
-                                                                <rect width="25" height="25" transform="translate(18.001 -9)"
-                                                                    fill="none"></rect>
-                                                                <path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
-                                                                    transform="translate(18.001 -9)" fill="{{$color->optionCode}}">
-                                                                </path>
-                                                                <path
-                                                                    d="M18,1A17,17,0,0,0,5.979,30.019,17,17,0,1,0,30.02,5.979,16.889,16.889,0,0,0,18,1m0-1A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
-                                                                    transform="translate(18.001 -9)" fill="rgba(0,0,0,0.5)"></path>
-                                                            </g>
-                                                        </svg>
-                                                    @endforeach
-                                                    </div>
-                                                @else
-                                                    <div class="d-flex align-items-center justify-content-start mt-2">
+                                    @if($option->fmyChipType == "COLOR")
+                                        <div class="d-flex align-items-center justify-content-start mt-2">
+                                            @foreach($option->optionList as $color)
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 50 50">
+                                                    <g transform="translate(-18.001 9)">
+                                                        <rect width="40" height="40" transform="translate(18.001 -9)" fill="none">
+                                                        </rect>
+                                                        <path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
+                                                            transform="translate(18.001 -9)" fill="{{$color->optionCode}}">
+                                                        </path>
+                                                        <path
+                                                            d="M18,1A17,17,0,0,0,5.979,30.019,17,17,0,1,0,30.02,5.979,16.889,16.889,0,0,0,18,1m0-1A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z"
+                                                            transform="translate(18.001 -9)" fill="rgba(0,0,0,0.5)"></path>
+                                                    </g>
+                                                </svg>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        
+                                    <div class="d-flex align-items-center justify-content-start mt-2">
                                                     @foreach($option->optionList as $other)
-                                                    <span class="border border-black rounded-pill option-chips">{{$other->optionLocalName}}</span>
+                                                    <span data-package="{{$product->packages->first()->id}}" data-name="{{$option->fmyChipType}}" data-value="{{$other->optionCode}}" class="border border-black rounded-pill option-chips getprice">{{$other->optionLocalName}}</span>
                                                     @endforeach 
                                                     </div>
-                                                @endif
-                                                @endforeach
+                                    @endif
+                                @endforeach
                             </div>
                             <!-- .single-product-meta -->
                             <!--<div class="rating-and-sharing-wrapper">
@@ -125,36 +148,34 @@
                             <!-- .rating-and-sharing-wrapper -->
                             <div class="woocommerce-product-details__short-description">
                                 <ul>
-                                @foreach (json_decode($product->packages->first()->json_data, true)['modelList'][0]['keySummary'] as $item) 
-                                                    @if($item['displayType'] == "Feature")                       
-                                                    <li>{!! $item['title'] !!}</li>          
-                                                    @endif          
-                                                    @endforeach
+                                    @foreach (json_decode($product->json_data, true)['modelList'][0]['marketingMessage'] as $item) 
+                                       
+                                            <li>{!! $item !!}</li>          
+                                                                          @endforeach
                                 </ul>
                             </div>
                             <!-- .woocommerce-product-details__short-description -->
-                            <div class="product-actions-wrapper">
-                                <div class="product-actions">
-                                    
-                                    <!-- .single-product-header -->
-                                    <form enctype="multipart/form-data" method="post" class="cart">
-                                        <div class="quantity">
-                                            <label for="quantity-input">Số lượng</label>
-                                            <input type="number" size="4" class="input-text qty text" title="Qty"
-                                                value="1" name="quantity" id="quantity-input">
-                                        </div>
-                                        <!-- .quantity -->
-                                        <button class="single_add_to_cart_button button alt" value="185"
-                                            name="add-to-cart" type="submit">Thêm giỏ hàng</button>
-                                    </form>
-                                    <!-- .cart -->
-                                    <a class="add-to-compare-link" href="#">So sánh</a>
-                                </div>
-                                <!-- .product-actions -->
-                            </div>
+                           
                             <!-- .product-actions-wrapper -->
                         </div>
                         <!-- .entry-summary -->
+                        <div class="product-actions-wrapper">
+                            <div class="product-actions">
+                                <div class="spec">
+                                <h3>Thông số kĩ thuật</h3>
+                                <ul>
+                                    @foreach (json_decode($product->spec, true)['modelList'][0]['spechighlight'] as $item)
+                                        <li>
+                                            <span class="name">{{$item['attributesName']}}</span>
+                                            <span class="value">{{$item['specIconValue']}}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                </div>
+                            </div>
+                            <!-- .product-actions -->
+                        </div>
+                        <!-- .product-actions-wrapper -->
                     </div>
                     <!-- .tm-related-products-carousel -->
                     <div class="woocommerce-tabs wc-tabs-wrapper">
