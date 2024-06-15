@@ -111,11 +111,13 @@
                                                 @endif
                                                 <div class="woocommerce-product-details__short-description mt-2">
                                                     <ul>
+                                                    @if (isset(json_decode($package->json_data, true)['modelList'][0]['uspDescription']))
                                                     @foreach (json_decode($package->json_data, true)['modelList'][0]['uspDescription'] as $item) 
                                                                     
                                                     <li>{!! $item !!}</li>          
                                                          
                                                     @endforeach
+                                                    @endif
                                                     </ul>
                                                 </div>
                                                 <!-- .woocommerce-product-details__short-description -->
