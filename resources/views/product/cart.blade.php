@@ -45,7 +45,7 @@
                                                                             <img width="180" height="180" alt="" class="wp-post-image" src="{{$item['product']->images->first()->url}}">
                                                                         </a>
                                                                         <div class="media-body align-self-center">
-                                                                            <a href="{{ route('product.detail',['alias' => $item['product']->slug]) }}">55" KU6470 6 Series UHD  Crystal Colour HDR Smart TV</a>
+                                                                            <a href="{{ route('product.detail',['alias' => $item['product']->slug]) }}">{{$item['product']->name}}</a>
                                                                         </div>
                                                                     </div>
                                                                 </td>
