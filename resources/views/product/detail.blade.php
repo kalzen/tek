@@ -16,7 +16,7 @@
     <div class="d-flex bg-dark justify-content-between align-items-center">
         <h1 class="headline-text">{{$product->title}}</h1>
         <div class="d-flex">
-            <span id="package-{{$product->packages->first()->id}}" class="d-flex align-items-center fw-bold fs-4" style="font-weight: 600;font-size: 1.3rem;">{{number_format($product->price)}}</span>₫
+            <span id="package-{{$product->packages->first()->id}}" class="d-flex align-items-center fw-bold fs-4" style="font-weight: 600;font-size: 1.3rem;">{{number_format($product->price)}}₫</span>
            <!-- <a class="add-to-compare-link" href="#">So sánh</a> -->
             <a href="#" id="buynow" data-model="{{$product->code}}" class="btn btn-primary cta buy rounded-pill ms-3">Mua ngay</a>
         </div>
