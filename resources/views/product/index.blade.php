@@ -133,7 +133,7 @@
                                                 </div>
                                                 <span class="price">
                                                     <span id="package-{{$package->id}}" class="woocommerce-Price-amount amount">
-                                                        {{number_format($package->products->first()->price)}}</span>đ
+                                                    @if($package->products->first()->price) {{number_format($package->products->first()->price)}}đ @else Liên hệ @endif</span>
                                                 </span>
                                                 <!-- .price -->
                                                 <a id="cart-{{$package->id}}" data-model="{{$package->products->first()->code}}" class="button add_to_cart_button" href="#">Thêm giỏ hàng</a>
@@ -152,29 +152,7 @@
                             <!-- .products -->
                         </div>
                         <!-- .woocommerce -->
-                    </div>>
-                </div>
-                <!-- .tab-content -->
-                <div class="shop-control-bar-bottom">
-                    
-                    <p class="woocommerce-result-count">
-                        Showing 1&ndash;15 of 73 results
-                    </p>
-                    <!-- .woocommerce-result-count -->
-                    <nav class="woocommerce-pagination">
-                        <ul class="page-numbers">
-                            <li>
-                                <span class="page-numbers current">1</span>
-                            </li>
-                            <li><a href="#" class="page-numbers">2</a></li>
-                            <li><a href="#" class="page-numbers">3</a></li>
-                            <li><a href="#" class="page-numbers">4</a></li>
-                            <li><a href="#" class="page-numbers">5</a></li>
-                            <li><a href="#" class="next page-numbers">→</a></li>
-                        </ul>
-                        <!-- .page-numbers -->
-                    </nav>
-                    <!-- .woocommerce-pagination -->
+                    </div>
                 </div>
                 <!-- .shop-control-bar-bottom -->
             </main>

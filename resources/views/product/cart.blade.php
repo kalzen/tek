@@ -32,7 +32,7 @@
                                                             @foreach ($cartData as $item)
                                                             <tr>
                                                                 <td class="product-remove">
-                                                                    <a class="remove" href="#">×</a> 
+                                                                    <a class="remove" data-model="{{$item['product']->code}}" onclick="removeFromCart(this)" href="#">×</a> 
                                                                 </td>
                                                                 <td class="product-thumbnail">
                                                                     <a href="{{ route('product.detail',['alias' => $item['product']->slug]) }}">
@@ -51,7 +51,7 @@
                                                                 </td>
                                                                 <td data-title="Price" class="product-price">
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        {{number_format($item['price'])}}
+                                                                        {{$item['price_html']}}
                                                                     </span>
                                                                 </td>
                                                                 <td class="product-quantity" data-title="Quantity">
@@ -64,7 +64,7 @@
                                                                 <span class="woocommerce-Price-amount amount">
                                                                         {{ number_format($item['price'] * $item['quantity']) }}
                                                                     </span>
-                                                                    <a title="Remove this item" class="remove" href="#">×</a>
+                                                                    <a data-model="{{$item['product']->code}}" onclick="removeFromCart(this)" title="Remove this item" class="remove"  href="#">×</a>
                                                                 </td>
                                                             </tr>
                                                             @endforeach

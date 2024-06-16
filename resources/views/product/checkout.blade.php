@@ -15,7 +15,7 @@
                 <div class="type-page hentry">
                     <div class="entry-content">
                         <div class="woocommerce">
-                            <div class="woocommerce-info">Returning customer? <a data-toggle="collapse"
+                            <!--<div class="woocommerce-info">Returning customer? <a data-toggle="collapse"
                                     href="#login-form" aria-expanded="false" aria-controls="login-form"
                                     class="showlogin">Click here to login</a>
                             </div>
@@ -55,9 +55,9 @@
                                     </p>
                                     <div class="clear"></div>
                                 </form>
-                            </div>
+                            </div> -->
                             <!-- .collapse -->
-                            <div class="woocommerce-info">Have a coupon? <a data-toggle="collapse"
+                            <!--<div class="woocommerce-info">Have a coupon? <a data-toggle="collapse"
                                     href="#checkoutCouponForm" aria-expanded="false" aria-controls="checkoutCouponForm"
                                     class="showlogin">Click here to enter your code</a>
                             </div>
@@ -72,7 +72,7 @@
                                     </p>
                                     <div class="clear"></div>
                                 </form>
-                            </div>
+                            </div> -->
                             <!-- .collapse -->
                             <form action="#" class="checkout woocommerce-checkout" method="post" name="checkout">
                                 <div id="customer_details" class="col2-set">

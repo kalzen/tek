@@ -14629,6 +14629,7 @@ article .widget-area .widget a.more-link:hover {
 .footer-widgets .widget > ul li {
     margin: 0;
     line-height: 2.267em;
+    text-wrap: nowrap;
 }
 .footer-widgets .columns:last-child {
     border-left: 1px solid #bebebe;
@@ -26997,7 +26998,7 @@ dl.variation dd {
     line-height: 1.5em;
     font-weight: 400;
     color: #222;
-    font-size: 1.2em;
+    font-size: 1.1rem;
     overflow: hidden;
     max-height: 42px;
     margin-left: auto;

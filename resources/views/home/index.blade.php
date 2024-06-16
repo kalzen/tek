@@ -110,7 +110,7 @@
                                             <span class="price">
                                                 <span class="woocommerce-Price-amount amount">
                                                     <span
-                                                        class="woocommerce-Price-currencySymbol"></span>{{number_format($package->products->first()->price)}}</span>đ
+                                                        class="woocommerce-Price-currencySymbol"></span>{{number_format($package->products->first()->price)}} đ</span>
                                             </span>
                                             <h2 class="woocommerce-loop-product__title">{{$package->name}}</h2>
                                             @if(isset($package->options) && $package->options!= null)

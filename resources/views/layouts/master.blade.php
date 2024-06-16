@@ -23,6 +23,8 @@
     <link rel="stylesheet" type="text/css" href="https://www.samsung.com/etc.clientlibs/samsung/clientlibs/consumer/global/clientlib-templates/page" media="all" />
     <link rel="stylesheet" type="text/css" href="{{asset('samfan/assets/css/product-detail.css')}}" media="all" />
     @endif
+    
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" media="all" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <!--<link rel="shortcut icon" href="{{asset('samfan/assets/images/fav-icon.png')}}"> -->
 </head>
@@ -58,6 +60,7 @@
         <input type="hidden" id="getprice_url" value="{{route('getPrice')}}">
         <input type="hidden" id="addtocart_url" value={{route('addtocart')}}>
         <input type="hidden" id="cart_url" value="{{route('cart')}}">
+        <input type="hidden" id="cart_remove_url" value="{{route('removeFromCart')}}">
         <!-- .site-footer -->
     </div>
     <script type="text/javascript" src="{{asset('samfan/assets/js/jquery.min.js')}}"></script>
@@ -73,6 +76,8 @@
     <script type="text/javascript" src="{{asset('samfan/assets/js/pace.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('samfan/assets/js/slick.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('samfan/assets/js/scripts.js')}}"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
     <script type="text/javascript" src="{{asset('samfan/assets/js/custom.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     @if(Route::is('product.*') ) 

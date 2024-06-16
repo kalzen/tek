@@ -161,20 +161,20 @@
                 <div class="handheld-header-links">
                     <ul class="columns-3">
                         <li class="my-account">
-                            <a href="login-and-register.html" class="has-icon">
+                            <a href="#" class="has-icon">
                                 <i class="tm tm-login-register"></i>
                             </a>
                         </li>
                         <li class="wishlist">
-                            <a href="wishlist.html" class="has-icon">
+                            <a href="#" class="has-icon">
                                 <i class="tm tm-favorites"></i>
-                                <span class="count">3</span>
+                                <span class="count">0</span>
                             </a>
                         </li>
                         <li class="compare">
-                            <a href="compare.html" class="has-icon">
+                            <a href="#" class="has-icon">
                                 <i class="tm tm-compare"></i>
-                                <span class="count">3</span>
+                                <span class="count">0</span>
                             </a>
                         </li>
                     </ul>
@@ -218,6 +218,10 @@
                         </div>
                         <!-- .widget -->
                     </div>
+                    <a class="handheld-header-cart-link has-icon cart-contents" href="{{route('cart.index')}}" title="View your shopping cart">
+                                    <i class="tm tm-shopping-bag"></i>
+                                    <span class="count">0</span>
+                        </a>
                 </div>
                 <!-- /.row -->
             </div>

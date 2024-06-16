@@ -338,10 +338,18 @@ class ProductController extends Controller
                 if ($chips->fmyChipType == $request->name)
                 {   
                     if ($chips->fmyChipCode == $request->value )
-                    {
+                    {   
+                        if ($model->price)
+                            {
+                            $price_html = number_format($model->price).'đ';
+                            }
+                            else
+                            {
+                                $price_html = 'Liên hệ';
+                            }
                         $data = array(
                             'model' => $model->modelCode,
-                            'price' => number_format($model->price)
+                            'price' => $price_html
                         );
                     return response()->json($data);
                     }
@@ -397,12 +405,19 @@ class ProductController extends Controller
                         if ($item['modelCode'] == $model['code'])
                         {
                             //return response()->json([$model]);
+                            if ($item['price'])
+                            {
                             $price_html = number_format($item['price']);
+                            }
+                            else
+                            {
+                                $price_html = 'Liên hệ';
+                            }
                             $price = $item['price'];
                         }
                     }
                     $html .= '<li class="woocommerce-mini-cart-item mini_cart_item">
-                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="65" data-product_sku=""></a>
+                                <a href="#" data-model="'.$modelCode.'" onclick="removeFromCart(this)" class="remove" aria-label="Remove this item"  data-product_sku=""></a>
                                 <a href="single-product-sidebar.html">
                                     <img src="'.$product->images->first()->url.'" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">'.$product->title.'
                                 </a>
@@ -411,13 +426,12 @@ class ProductController extends Controller
                                 </span>
                             </li>';
                 }
-                $total_price = $price*$model['quantity'];
+                $total_price += $price*$model['quantity'];
             }
             $response = response()->json([
                 'total_items' => count($cart),
                 'html' => $html,
                 'total_price' => number_format($total_price),
-                'model' => $model
             ]);
             return $response;
         
@@ -434,13 +448,22 @@ class ProductController extends Controller
                 $price = 0;
                 foreach (json_decode($package->json_data, true)['modelList'] as $item) {
                     if ($item['modelCode'] == $model['code']) {
+                        if ($item['price'])
+                        {
+                        $price_html = number_format($item['price']).'đ';
+                        }
+                        else
+                        {
+                            $price_html = 'Liên hệ';
+                        }
                         $price = $item['price'];
                     }
                 }
                 $cartData[] = [
                     'product' => $product,
                     'quantity' => $model['quantity'],
-                    'price' => $price,
+                    'price_html' => $price_html,
+                    'price' => $price
                 ];
                 $total_price += $price * $model['quantity'];
             }
@@ -472,5 +495,27 @@ class ProductController extends Controller
             }
         }
         return view('product.checkout', compact('cartData', 'total_price', 'cart'));
+    }
+    public function removeFromCart(Request $request)
+    {
+        try {
+            $cart = json_decode(request()->cookie('cart'), true) ?? [];
+            $model = $request->model;
+
+            if (array_key_exists($model, $cart)) {
+                unset($cart[$model]);
+            }
+
+            $response = response()->json([
+                'total_items' => count($cart),
+            ]);
+
+            return $response->withCookie(cookie()->forever('cart', json_encode($cart)));
+        } catch (\Exception $e) {
+            Log::error('Error in ProductController@removeFromCart: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'An error occurred while removing the item from the cart.',
+            ], 500);
+        }
     }
 }
