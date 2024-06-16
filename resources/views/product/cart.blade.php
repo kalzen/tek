@@ -45,7 +45,7 @@
                                                                             <img width="180" height="180" alt="" class="wp-post-image" src="{{$item['product']->images->first()->url}}">
                                                                         </a>
                                                                         <div class="media-body align-self-center">
-                                                                            <a href="{{ route('product.detail',['alias' => $item['product']->slug]) }}">{{$item['product']->name}}</a>
+                                                                            <a href="{{ route('product.detail',['alias' => $item['product']->slug]) }}">{{$item['product']->title}}</a>
                                                                         </div>
                                                                     </div>
                                                                 </td>
