@@ -99,9 +99,36 @@ $('#checkout').click(function(e)
       });
    
 });
+function updateCartItem(input, modelCode) {
+    var quantity = $(input).val();
+    var url_data = $('#cart_update_url').val() + "?model=" + modelCode + "&quantity=" + quantity;
+    $.ajax({
+        type: 'GET',
+        url: url_data,
+        dataType: 'json',
+        success: function(data) {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                // Update the cart UI
+                $(`#quantity-input-${modelCode}`).val(quantity);
+                var subtotal = data.subtotal;
+                $(`#subtotal-${modelCode}`).text(data.subtotals[`${modelCode}`] + '₫');
+                $('.cart_totals .woocommerce-Price-amount.amount#total-price').text(data.total_price + '₫');
+                $('.cart_totals .order-total .woocommerce-Price-amount.amount#total-amount').text(data.total_price + '₫');
+                // toastr["success"]("Cập nhật giỏ hàng thành công!", "Cập nhật giỏ hàng");
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('An error occurred while updating the cart item. Please try again later.');
+            console.error(error);
+        }
+    });
+}
+
 function removeFromCart(element) {
     var model = $(element).data('model');
-    var url_data = $('#cart_remove_url').val()+"?model="+model;
+    var url_data = $('#cart_remove_url').val() + "?model=" + model;
     $.ajax({
         url: url_data,
         type: 'GET',
@@ -115,8 +142,6 @@ function removeFromCart(element) {
                 $('.cart_totals .order-total .woocommerce-Price-amount.amount').text(response.total_price + '₫');
                 $(element).closest('tr').remove();
                 getCart();
-                //$(element).closest('li').remove();
-                //toastr["success"]("Xóa sản phẩm!", "Xóa sản phẩm giỏ hàng thành cô"); 
             }
         },
         error: function(xhr, status, error) {

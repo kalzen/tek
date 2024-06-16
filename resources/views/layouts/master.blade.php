@@ -61,6 +61,7 @@
         <input type="hidden" id="addtocart_url" value={{route('addtocart')}}>
         <input type="hidden" id="cart_url" value="{{route('cart')}}">
         <input type="hidden" id="cart_remove_url" value="{{route('removeFromCart')}}">
+        <input type="hidden" id="cart_update_url" value="{{route('product.update-cart-item')}}">
         <!-- .site-footer -->
     </div>
     <script type="text/javascript" src="{{asset('samfan/assets/js/jquery.min.js')}}"></script>

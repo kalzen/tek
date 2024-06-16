@@ -49,6 +49,7 @@ Route::get('/gio-hang', [App\Http\Controllers\ProductController::class, 'cartInd
 Route::get('/thanh-toan', [App\Http\Controllers\ProductController::class, 'checkout'])->name('checkout');
 Route::get('/remove-cart', [App\Http\Controllers\ProductController::class, 'removeFromCart'])->name('removeFromCart');
 Route::get('/clearcookies', [App\Http\Controllers\ProductController::class, 'clearCookie'])->name('clearcookie');
+Route::get('product/update-cart-item', [App\Http\Controllers\ProductController::class, 'updateCartItem'])->name('product.update-cart-item');
 Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('', [DashboardController::class, 'index'])->name('index');
     Route::get('logout', [DashboardController::class, 'logout'])->name('logout');

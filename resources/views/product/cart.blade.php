@@ -57,11 +57,11 @@
                                                                 <td class="product-quantity" data-title="Quantity">
                                                                     <div class="quantity">
                                                                         <label for="quantity-input-1">Quantity</label>
-                                                                        <input id="quantity-input-1" type="number" name="cart[e2230b853516e7b05d79744fbd4c9c13][qty]" value="{{ $item['quantity']}}" title="Qty" class="input-text qty text" size="4">
+                                                                        <input id="quantity-input-{{$item['product']->code}}" type="number" name="cart[{{$item['product']->code}}][qty]" value="{{ $item['quantity']}}" title="Qty" class="input-text qty text" size="4" min="1" onchange="updateCartItem(this, '{{$item['product']->code}}')">
                                                                     </div>
                                                                 </td>
-                                                                <td data-title="Total" class="product-subtotal">
-                                                                <span class="woocommerce-Price-amount amount">
+                                                                <td data-title="Total" class="product-subtotal" >
+                                                                <span class="woocommerce-Price-amount amount" id="subtotal-{{$item['product']->code}}">
                                                                         {{ number_format($item['price'] * $item['quantity']) }}
                                                                     </span>
                                                                     <a data-model="{{$item['product']->code}}" onclick="removeFromCart(this)" title="Remove this item" class="remove"  href="#">×</a>
@@ -78,10 +78,10 @@
                                                         <h2>Thanh toán</h2>
                                                         <table class="shop_table shop_table_responsive">
                                                                 <tbody>
-                                                                    <tr class="cart-subtotal">
+                                                                <tr class="cart-subtotal">
                                                                         <th>Tổng phụ</th>
                                                                         <td data-title="Subtotal">
-                                                                            <span class="woocommerce-Price-amount amount">
+                                                                            <span class="woocommerce-Price-amount amount" id="total-price">
                                                                                 {{ number_format($total_price) }}
                                                                             </span>
                                                                         </td>
@@ -94,12 +94,13 @@
                                                                         <th>Tổng cộng</th>
                                                                         <td data-title="Total">
                                                                             <strong>
-                                                                                <span class="woocommerce-Price-amount amount">
+                                                                                <span class="woocommerce-Price-amount amount" id="total-amount">
                                                                                     {{ number_format($total_price) }}
                                                                                 </span>
                                                                             </strong>
                                                                         </td>
                                                                     </tr>
+                                                                    
                                                                 </tbody>
                                                         </table>
                                                         <!-- .shop_table shop_table_responsive -->

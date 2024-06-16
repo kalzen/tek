@@ -506,8 +506,28 @@ class ProductController extends Controller
                 unset($cart[$model]);
             }
 
+            $total_price = 0;
+            $subtotals = [];
+            foreach ($cart as $modelCode => $model) {
+                $product = Product::where('code', $modelCode)->first();
+                if ($product) {
+                    $package = $product->packages->first();
+                    $price = 0;
+                    foreach (json_decode($package->json_data, true)['modelList'] as $item) {
+                        if ($item['modelCode'] == $model['code']) {
+                            $price = $item['price'];
+                        }
+                    }
+                    $subtotal = $price * $model['quantity'];
+                    $subtotals[$modelCode] = number_format($subtotal);
+                    $total_price += $subtotal;
+                }
+            }
+
             $response = response()->json([
                 'total_items' => count($cart),
+                'total_price' => number_format($total_price),
+                'subtotals' => $subtotals,
             ]);
 
             return $response->withCookie(cookie()->forever('cart', json_encode($cart)));
@@ -518,4 +538,48 @@ class ProductController extends Controller
             ], 500);
         }
     }
+    public function updateCartItem(Request $request)
+    {
+        try {
+            $cart = json_decode(request()->cookie('cart'), true) ?? [];
+            $model = $request->model;
+            $quantity = $request->quantity;
+    
+            if (array_key_exists($model, $cart)) {
+                $cart[$model]['quantity'] = $quantity;
+            }
+    
+            $total_price = 0;
+            $subtotals = [];
+            foreach ($cart as $modelCode => $model) {
+                $product = Product::where('code', $modelCode)->first();
+                if ($product) {
+                    $package = $product->packages->first();
+                    $price = 0;
+                    foreach (json_decode($package->json_data, true)['modelList'] as $item) {
+                        if ($item['modelCode'] == $model['code']) {
+                            $price = $item['price'];
+                        }
+                    }
+                    $subtotal = $price * $model['quantity'];
+                    $subtotals[$modelCode] = number_format($subtotal);
+                    $total_price += $subtotal;
+                }
+            }
+    
+            $response = response()->json([
+                'total_items' => count($cart),
+                'total_price' => number_format($total_price),
+                'subtotals' => $subtotals,
+            ]);
+    
+            return $response->withCookie(cookie()->forever('cart', json_encode($cart)));
+        } catch (\Exception $e) {
+            Log::error('Error in ProductController@updateCartItem: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'An error occurred while updating the cart item.',
+            ], 500);
+        }
+    }    
+
 }
