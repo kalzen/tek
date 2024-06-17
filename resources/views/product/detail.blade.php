@@ -163,16 +163,28 @@
                             <div class="product-actions">
                                 <div class="spec">
                                 <h3>Thông số kĩ thuật</h3>
-                                <ul>
-                                    @if (isset(json_decode($product->spec, true)['modelList'][0]['spechighlight']))
+                                <table id="spec-detail">
+                                    <tbody>
+                                @foreach (json_decode($product->spec, true)['modelList'][0]['spec']['specItems'] as $item)
+                                    <tr><td class="text-center" style="font-weight: 500" colspan="2">{{$item['attrName']}}</td></tr>
+                                    @if(is_array($item['attrs']) || is_object($item['attrs']))
+                                        @foreach ($item['attrs'] as $subitem)
+                                        <tr><td>{{$subitem['attrName']}}</td><td>{{$subitem['attrValue']}}</td></tr>
+                                        @endforeach
+                                    @endif
+                                    
+                                @endforeach
+                                @if (isset(json_decode($product->spec, true)['modelList'][0]['spechighlight']))
                                     @foreach (json_decode($product->spec, true)['modelList'][0]['spechighlight'] as $item)
-                                        <li>
-                                            <span class="name">{{$item['attributesName']}}</span>
-                                            <span class="value">{{$item['specIconValue']}}</span>
-                                        </li>
+                                       
+                                        <tr><td>{{$item['attributesName']}}</td><td>{{$item['specIconValue']}}</td></tr>
                                     @endforeach
                                     @endif
-                                </ul>
+                                    </tbody>
+                                </table>
+                                    
+                                <a href="#" class="show-table-full text-center">Xem thêm >></a>
+
                                 </div>
                             </div>
                             <!-- .product-actions -->

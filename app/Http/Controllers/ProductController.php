@@ -22,38 +22,70 @@ class ProductController extends Controller
         $products = Product::active()->latest()->paginate();
         return view('product.index',compact('catalogues','products'));
     }
-    public function catalogue($alias)
+    public function catalogue($alias, Request $request)
     {
+        //dd($request);
         $catalogues = Catalogue::orderBy('id','asc')->get();
         $catalogue = Catalogue::where('slug',$alias)->firstOrFail();
-        //keyword
-        $query = $catalogue->products()->active();
-        if (request('sort')=='price-asc') {
-            $query->orderBy('price','asc');
-        } else if (request('sort') == 'price-desc') {
-            $query->orderBy('price','desc');
-        } else {
-            $query->orderBy('created_at','desc');
+
+        $query = Package::where('catalogue_id',$catalogue->id);
+
+        if (isset($request->type))
+        {
+            $filters_only = $request->except(['_token', 'type']);
+            $string_filter = $this->convertFiltersToString($filters_only);
+            $client = new Client();
+            $response = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/finder/global?type='.$catalogue->type.'&siteCode=vn&start=1&num=100&sort=newest&onlyFilterInfoYN=N&keySummaryYN=Y&specHighlightYN=Y&'.$string_filter.'&familyId=');
+            $json = json_decode($response->getBody(), true);
+            $result = [];
+            foreach ($json['response']['resultData']['productList'] as $item)
+            {
+                array_push($result,$item['productGroupId']);
+            }
+            $query->whereIn('group_id',$result);
+           //dd('https://searchapi.samsung.com/v6/front/b2c/product/finder/global?type='.$catalogue->type.'&siteCode=vn&start=1&num=12&sort=newest&onlyFilterInfoYN=N&keySummaryYN=Y&specHighlightYN=Y&'.$string_filter.'&familyId=');
+            //dd($json);
         }
-        if (request('keyword')) {
-            $query->where(function($p){
-                $p->where('title','like','%'.request('keyword').'%')
-                ->orWhere('description','like','%'.request('keyword').'%')
-                ->orWhere('slug','like','%'.request('keyword').'%')
-                ->orWhereHas('tags',function($tag){
-                    $tag->where('name','like','%'.request('keyword').'%');
-                })
-                ->orWhereHas('catalogues',function($tag){
-                    $tag->where('name','like','%'.request('keyword').'%')
-                    ->orWhere('slug','like','%'.request('keyword').'%');
-                });
-            });
+
+        $client = new Client();
+        $response = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/finder/global?type='.$catalogue->type.'&siteCode=vn&start=1&num=100&sort=onlineavailability&onlyFilterInfoYN=Y');
+        $json = json_decode($response->getBody(), true);
+        $filters = $json['response']['resultData'];
+        $packages = $query->paginate();
+        //dd($packages);
+        return view('product.index',compact('catalogue','catalogues', 'packages', 'filters'));
+    }
+    public function convertFiltersToString(array $filters)
+    {
+        try {
+            $filterString = '';
+            $isFirstFilter = true;
+
+            foreach ($filters as $key => $value) {
+                if (is_array($value)) {
+                    $filterString .= $key . '=';
+                    $isFirstArrayItem = true;
+                    foreach ($value as $arrayValue) {
+                        if (!$isFirstArrayItem) {
+                            $filterString .= '%2B';
+                        }
+                        $filterString .= $arrayValue;
+                        $isFirstArrayItem = false;
+                    }
+                } else {
+                    if (!$isFirstFilter) {
+                        $filterString .= '&';
+                    }
+                    $filterString .= $key . '=' . $value;
+                }
+                $isFirstFilter = false;
+            }
+
+            return $filterString;
+        } catch (\Exception $e) {
+            Log::error('Error converting filters to string: ' . $e->getMessage());
+            return response()->json(['error' => 'An error occurred while converting filters to string.'], 500);
         }
-        $products = $query->paginate();
-        $packages = $catalogue->packages()->with('products')->get();
-        //dd($packages->count());
-        //dd($packages->products()->count());
-        return view('product.index',compact('catalogue','products','catalogues', 'packages'));
     }
     public function crawl()
     {
@@ -357,6 +389,24 @@ class ProductController extends Controller
             }
         }
         return false;
+    }
+    public function getThumb(Request $request)
+    {
+        $package = Package::find($request->package);
+        foreach (json_decode($package->json_data)->modelList as $model)
+        {
+            foreach ($model->fmyChipList as $chips)
+            {
+                if ($chips->fmyChipType == 'COLOR')
+                {   
+                    if (strcasecmp($chips->fmyChipName, $request->value) == 0)
+                    {       
+                    return response()->json($model->thumbUrl);
+                    }
+                }
+            }
+        }
+        return response()->json($request);
     }
     public function addtocart(Request $request)
     {

@@ -58,6 +58,7 @@
         <!-- #content -->
          @include('partials.footer')
         <input type="hidden" id="getprice_url" value="{{route('getPrice')}}">
+        <input type="hidden" id="getthumb_url" value="{{route('getThumb')}}">
         <input type="hidden" id="addtocart_url" value={{route('addtocart')}}>
         <input type="hidden" id="cart_url" value="{{route('cart')}}">
         <input type="hidden" id="cart_remove_url" value="{{route('removeFromCart')}}">

@@ -61,11 +61,14 @@
                     <div id="list-view-large" class="tab-pane active" role="tabpanel">
                         <div class="woocommerce columns-1">
                             <div class="products">
+                                @if($packages->count() == 0)
+                                    <h3>Không có sản phẩm phù hợp</h3>
+                                @endif
                             @foreach ($packages as $package)
                             @if ($package->products->count())
                                 <div class="product list-view-large first ">
                                     <div class="media">
-                                        <img width="224" height="197" alt=""
+                                        <img id="thumbpack-{{$package->id}}" width="224" height="197" alt=""
                                             class="attachment-shop_catalog size-shop_catalog wp-post-image"
                                             src="{{$package->products->first()->images->first()->url ?? ''}}">
                                         <div class="media-body">
@@ -85,6 +88,7 @@
                                                 @if($option->fmyChipType == "COLOR")
                                                     <div class="d-flex align-items-center justify-content-start mt-2">
                                                     @foreach($option->optionList as $color)
+                                                    <a data-package="{{$package->id}}"  data-code="{{$color->optionName}}" class="getThumb @if($loop->index==0) active @endif">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                             viewBox="0 0 50 50">
                                                             <g transform="translate(-18.001 9)">
@@ -98,6 +102,7 @@
                                                                     transform="translate(18.001 -9)" fill="rgba(0,0,0,0.5)"></path>
                                                             </g>
                                                         </svg>
+                                                        </a>
                                                     @endforeach
                                                     </div>
                                                 @else
@@ -159,395 +164,37 @@
             <!-- #main -->
         </div>
         <!-- #primary -->
-        <div id="secondary" style="opacity:0" class="widget-area shop-sidebar" role="complementary">
-                            <div class="widget woocommerce widget_product_categories techmarket_widget_product_categories" id="techmarket_product_categories_widget-2">
-                                <ul class="product-categories ">
-                                    <li class="product_cat">
-                                        <span>Browse Categories</span>
-                                        <ul>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>Televisions</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>Home Theater &amp; Audio</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Headphones</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Digital Cameras</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Cells &amp; Tablets</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>Smartwatches</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Games &amp; Consoles</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>Printer</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>TV &amp; Video</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Home Entertainment</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Computers &amp; Laptops</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>Notebooks</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Desktop PCs</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>Mac Computers</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>All in One PC</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Audio &amp; Music</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>PC Components</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="child-indicator">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </span>Desktop PCs</a>
-                                            </li>
-                                            <li class="cat-item">
-                                                <a href="product-category.html">
-                                                    <span class="no-child"></span>Monitors</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+        <div id="secondary" class="widget-area shop-sidebar" role="complementary">
+                            <form id="filter" method="GET" action="{{route('product.catalogue',['alias'=> $catalogue->slug])}}">
+                                @csrf
+                                <input type="hidden" name="type" value="{{$catalogue->type}}">
                             <div id="techmarket_products_filter-3" class="widget widget_techmarket_products_filter">
-                                <span class="gamma widget-title">Filters</span>
-                                <div class="widget woocommerce widget_price_filter" id="woocommerce_price_filter-2">
-                                    <p>
-                                        <span class="gamma widget-title">Filter by price</span>
-                                        </p><div class="price_slider_amount">
-                                            <input id="amount" type="text" placeholder="Min price" data-min="6" value="33" name="min_price" style="display: none;">
-                                            <button class="button" type="submit">Filter</button>
-                                        </div>
-                                        <div id="slider-range" class="price_slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span></div>
-                                </div>
-                                <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-2">
-                                    <span class="gamma widget-title">Brands</span>
-                                    <ul>
-                                        <li class="wc-layered-nav-term ">
-                                            <a href="#">apple</a>
-                                            <span class="count">(2)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">bosch</a>
-                                            <span class="count">(1)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">cannon</a>
-                                            <span class="count">(1)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">connect</a>
-                                            <span class="count">(1)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">galaxy</a>
-                                            <span class="count">(3)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">gopro</a>
-                                            <span class="count">(1)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">kinova</a>
-                                            <span class="count">(1)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">samsung</a>
-                                            <span class="count">(1)</span>
-                                        </li>
-                                    </ul><p class="maxlist-more"><a href="#">+ Show more</a></p>
-                                </div>
-                                <!-- .woocommerce widget_layered_nav -->
-                                <div class="widget woocommerce widget_layered_nav maxlist-more" id="woocommerce_layered_nav-3">
-                                    <span class="gamma widget-title">Color</span>
-                                    <ul>
-                                        <li class="wc-layered-nav-term "><a href="#">Black</a>
-                                            <span class="count">(4)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">Blue</a>
-                                            <span class="count">(4)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">Green</a>
-                                            <span class="count">(5)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">Orange</a>
-                                            <span class="count">(5)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term "><a href="#">Red</a>
-                                            <span class="count">(4)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">Yellow</a>
-                                            <span class="count">(5)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">Green</a>
-                                            <span class="count">(5)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">Orange</a>
-                                            <span class="count">(5)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">Red</a>
-                                            <span class="count">(4)</span>
-                                        </li>
-                                        <li class="wc-layered-nav-term " style="display: none;"><a href="#">Yellow</a>
-                                            <span class="count">(5)</span>
-                                        </li>
-                                    </ul><p class="maxlist-more"><a href="#">+ Show more</a></p>
-                                </div>
-                                <!-- .woocommerce widget_layered_nav -->
-                            </div>
-                            <div class="widget widget_techmarket_products_carousel_widget">
-                                <section id="single-sidebar-carousel" class="section-products-carousel">
-                                    <header class="section-header">
-                                        <h2 class="section-title">Latest Products</h2>
-                                        <nav class="custom-slick-nav"></nav>
-                                    </header>
-                                    <!-- .section-header -->
-                                    <div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;rows&quot;:2,&quot;slidesPerRow&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;<a href=https://transvelo.github.io/" #\&quot;&gt;&lt;i="" tm-arrow-left\&quot;&gt;&lt;\="" i&gt;&lt;\="" a&gt;&quot;,&quot;nextarrow&quot;:&quot;&lt;a="" href="https://transvelo.github.io/&quot;#\&quot;><i" tm-arrow-right\&quot;&gt;&lt;\="" a&gt;&quot;,&quot;appendarrows&quot;:&quot;#single-sidebar-carousel="" .custom-slick-nav&quot;}"="">
-                                        <div class="container-fluid">
-                                            <div class="woocommerce columns-1">
-                                                <div class="products slick-initialized slick-slider"><button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="">Previous</button>
-                                                    <div aria-live="polite" class="slick-list draggable"><div class="slick-track" role="listbox" style="opacity: 1; width: 1578px; transform: translate3d(-263px, 0px, 0px);"><div class="landscape-product-widget product slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 263px;">
-                                                        <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html" tabindex="-1">
-                                                            <div class="media">
-                                                                <img class="wp-post-image" src="assets/images/products/sm-4.jpg" alt="">
-                                                                <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                                    <!-- .price -->
-                                                                    <h2 class="woocommerce-loop-product__title">S100 Wireless Bluetooth Speaker – Neon Green</h2>
-                                                                    <div class="techmarket-product-rating">
-                                                                        <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                                        </div>
-                                                                        <span class="review-count">(0)</span>
-                                                                    </div>
-                                                                    <!-- .techmarket-product-rating -->
-                                                                </div>
-                                                                <!-- .media-body -->
-                                                            </div>
-                                                            <!-- .media -->
-                                                        </a>
-                                                        <!-- .woocommerce-LoopProduct-link -->
-                                                    </div><div class="landscape-product-widget product slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00" style="width: 263px;">
-                                                        <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html" tabindex="0">
-                                                            <div class="media">
-                                                                <img class="wp-post-image" src="assets/images/products/sm-1.jpg" alt="">
-                                                                <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                                    <!-- .price -->
-                                                                    <h2 class="woocommerce-loop-product__title">S100 Wireless Bluetooth Speaker – Neon Green</h2>
-                                                                    <div class="techmarket-product-rating">
-                                                                        <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                                        </div>
-                                                                        <span class="review-count">(0)</span>
-                                                                    </div>
-                                                                    <!-- .techmarket-product-rating -->
-                                                                </div>
-                                                                <!-- .media-body -->
-                                                            </div>
-                                                            <!-- .media -->
-                                                        </a>
-                                                        <!-- .woocommerce-LoopProduct-link -->
-                                                    </div><div class="landscape-product-widget product slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 263px;">
-                                                        <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html" tabindex="-1">
-                                                            <div class="media">
-                                                                <img class="wp-post-image" src="assets/images/products/sm-2.jpg" alt="">
-                                                                <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                                    <!-- .price -->
-                                                                    <h2 class="woocommerce-loop-product__title">S100 Wireless Bluetooth Speaker – Neon Green</h2>
-                                                                    <div class="techmarket-product-rating">
-                                                                        <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                                        </div>
-                                                                        <span class="review-count">(0)</span>
-                                                                    </div>
-                                                                    <!-- .techmarket-product-rating -->
-                                                                </div>
-                                                                <!-- .media-body -->
-                                                            </div>
-                                                            <!-- .media -->
-                                                        </a>
-                                                        <!-- .woocommerce-LoopProduct-link -->
-                                                    </div><div class="landscape-product-widget product slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide02" style="width: 263px;">
-                                                        <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html" tabindex="-1">
-                                                            <div class="media">
-                                                                <img class="wp-post-image" src="assets/images/products/sm-3.jpg" alt="">
-                                                                <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                                    <!-- .price -->
-                                                                    <h2 class="woocommerce-loop-product__title">S100 Wireless Bluetooth Speaker – Neon Green</h2>
-                                                                    <div class="techmarket-product-rating">
-                                                                        <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                                        </div>
-                                                                        <span class="review-count">(0)</span>
-                                                                    </div>
-                                                                    <!-- .techmarket-product-rating -->
-                                                                </div>
-                                                                <!-- .media-body -->
-                                                            </div>
-                                                            <!-- .media -->
-                                                        </a>
-                                                        <!-- .woocommerce-LoopProduct-link -->
-                                                    </div><div class="landscape-product-widget product slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide03" style="width: 263px;">
-                                                        <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html" tabindex="-1">
-                                                            <div class="media">
-                                                                <img class="wp-post-image" src="assets/images/products/sm-4.jpg" alt="">
-                                                                <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                                    <!-- .price -->
-                                                                    <h2 class="woocommerce-loop-product__title">S100 Wireless Bluetooth Speaker – Neon Green</h2>
-                                                                    <div class="techmarket-product-rating">
-                                                                        <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                                        </div>
-                                                                        <span class="review-count">(0)</span>
-                                                                    </div>
-                                                                    <!-- .techmarket-product-rating -->
-                                                                </div>
-                                                                <!-- .media-body -->
-                                                            </div>
-                                                            <!-- .media -->
-                                                        </a>
-                                                        <!-- .woocommerce-LoopProduct-link -->
-                                                    </div><div class="landscape-product-widget product slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" tabindex="-1" style="width: 263px;">
-                                                        <a class="woocommerce-LoopProduct-link" href="single-product-fullwidth.html" tabindex="-1">
-                                                            <div class="media">
-                                                                <img class="wp-post-image" src="assets/images/products/sm-1.jpg" alt="">
-                                                                <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                                    <!-- .price -->
-                                                                    <h2 class="woocommerce-loop-product__title">S100 Wireless Bluetooth Speaker – Neon Green</h2>
-                                                                    <div class="techmarket-product-rating">
-                                                                        <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                                        </div>
-                                                                        <span class="review-count">(0)</span>
-                                                                    </div>
-                                                                    <!-- .techmarket-product-rating -->
-                                                                </div>
-                                                                <!-- .media-body -->
-                                                            </div>
-                                                            <!-- .media -->
-                                                        </a>
-                                                        <!-- .woocommerce-LoopProduct-link -->
-                                                    </div></div></div>
-                                                    
-                                                    
-                                                    
-                                                <button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="">Next</button></div>
-                                                <!-- .products -->
-                                            </div>
-                                            <!-- .woocommerce -->
-                                        </div>
-                                        <!-- .container-fluid -->
+                                
+                                <span class="gamma widget-title">Bộ lọc</span>
+                                
+                                @foreach ($filters['navGroups']  as $filter)
+                                @php
+                                    $i = $loop->index+1;
+                                @endphp
+                                
+                                <div class="widget woocommerce widget_layered_nav maxlist-more">
+                                    <span class="gamma widget-title">{{$filter['categoryFilterDispName']}}</span>
+                                    @foreach ($filter['productFinderFilter'] as $item )
+                                    
+                                    
+                                    <div class="checkbox-wrapper-13">
+                                    <input @if(request()->has('filter'.($i)) && in_array($item['filterSearchCode'], request()->input('filter'.($i))))    checked @endif class="filter-product" id="{{$item['filterSearchCode']}}" name="filter{{$i}}[]" value="{{$item['filterSearchCode']}}" type="checkbox">
+                                        <label for="{{$item['filterSearchCode']}}">{{$item['filterLocalName']}}</label>
                                     </div>
-                                    <!-- .products-carousel -->
-                                </section>
-                                <!-- .section-products-carousel -->
+                                    @endforeach
+                                </div>
+                                @endforeach
+                                <!-- .woocommerce widget_layered_nav -->
                             </div>
+                            </form>
                             <!-- .widget_techmarket_products_carousel_widget -->
                         </div>
     </div>
     <!-- .row -->
 </div>
-
 @endsection

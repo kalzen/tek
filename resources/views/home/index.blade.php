@@ -44,7 +44,7 @@
                                         <!-- .custom-slick-nav -->
                                 </header>
                                 <!-- .section-header -->
-                                <div class="product-categories-1 product-categories-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#categories-carousel-1 .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}}]}">
+                                <div class="product-categories-1 product-categories-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;slidesToScroll&quot;:5,&quot;slidesToShow&quot;:6,&quot;dots&quot;:true,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#categories-carousel-1 .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:4}}]}">
                                         <div class="woocommerce columns-5">
                                             <div class="products">
                                                 @foreach ($shared_categories as $cat)
@@ -68,21 +68,16 @@
                             </section>
                             <!-- .section-categories-carousel -->
                           
-                            <section class="section-hot-new-arrivals section-products-carousel-tabs techmarket-tabs">
+                            <section class="section-hot-new-arrivals section-products-carousel-tabs techmarket-tabs py-4">
                                 <div class="section-products-carousel-tabs-wrap">
-                                    <header class="section-header">
-                                        <h2 class="section-title">Sản phẩm nổi bật</h2>
-                                        <ul role="tablist" class="nav justify-content-end">
-                                            @foreach ($catalogues as $cat)
-                                            <li class="nav-item"><a class="nav-link @if($loop->index==0) active @endif" href="#tab-{{$cat->slug}}"
-                                                    data-toggle="tab">{{$cat->name}}</a></li>
-                                                    @endforeach
-                                        </ul>
-                                    </header>
+                                   
                                     <!-- .section-header -->
+                                    @foreach ($catalogues as $cat)
+                                    @if ($loop->index < 4) 
+                                    <h2 class="section-title">{{$cat->name}}</h2>
                                     <div class="tab-content">
-                                        @foreach ($catalogues as $cat)
-                                        <div id="tab-{{$cat->slug}}" class="tab-pane @if($loop->index==0) active @endif" role="tabpanel">
+                                        
+                                        <div id="tab-{{$cat->slug}}">
                                             <div class="products-carousel" data-ride="tm-slick-carousel"
                                                 data-wrap=".products"
                                                 data-slick="{&quot;infinite&quot;:false,&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:700,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:780,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
@@ -98,21 +93,26 @@
                                         <!-- .yith-wcwl-add-to-wishlist -->
                                         <a class="woocommerce-LoopProduct-link woocommerce-loop-product__link"
                                             href="{{ route('product.detail', ['alias' => $package->products->first()->slug] ?? '') }}">
-                                            <img width="224" height="197" alt=""
+                                            <img id="thumbpack-{{$package->id}}" width="224" height="197" alt=""
                                                 class="attachment-shop_catalog size-shop_catalog wp-post-image"
                                                 src="{{$package->products->first()->images->first()->url ?? ''}}">
                                             <span class="price">
                                                 <span class="woocommerce-Price-amount amount">
                                                     <span
-                                                        class="woocommerce-Price-currencySymbol"></span>{{number_format($package->products->first()->price)}} đ</span>
+                                                        class="woocommerce-Price-currencySymbol"></span>@if ($package->products->first()->price != 0)
+                                                        
+                                                        {{number_format($package->products->first()->price)}} đ</span>
+                                                        
+                                                        @endif
                                             </span>
                                             <h2 class="woocommerce-loop-product__title">{{$package->name}}</h2>
-                                            @if(isset($package->options) && $package->options!= null)
+                                            @if(is_array(json_decode($package->options)) || is_object(json_decode($package->options)))
                                             @foreach (json_decode($package->options) as $option)
                                                 @if($option->fmyChipType == "COLOR")
                                                     <div class="d-flex align-items-center justify-content-center mt-2">
                                                     @foreach($option->optionList as $color)
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                    <a data-package="{{$package->id}}"  data-code="{{$color->optionName}}" class="getThumb @if($loop->index==0) active @endif">
+                                                        <svg  xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                             viewBox="0 0 50 50">
                                                             <g transform="translate(-18.001 9)">
                                                                 <rect width="25" height="25" transform="translate(18.001 -9)"
@@ -125,6 +125,7 @@
                                                                     transform="translate(18.001 -9)" fill="rgba(0,0,0,0.5)"></path>
                                                             </g>
                                                         </svg>
+                                                        </a>
                                                     @endforeach
                                             
                                                     </div>
@@ -150,62 +151,16 @@
                                             </div>
                                             <!-- .products-carousel -->
                                         </div>
-                                        @endforeach
+                                       
                                         <!-- .tab-pane -->
                                     </div>
+                                    @endif
+                                    @endforeach
                                     <!-- .tab-content -->
                                 </div>
                                 <!-- .section-products-carousel-tabs-wrap -->
                             </section>
                             <!-- .section-products-carousel-tabs -->
-                            <div class="banners">
-                                <div class="row">
-                                    <div class="banner banner-long text-in-right">
-                                        <a href="#">
-                                            <div style="background-size: cover; background-position: center center; background-image: url( {{asset('samfan/assets/images/banner/3-2.jpg')}}); height: 259px;"
-                                                class="banner-bg">
-                                                <div class="caption">
-                                                    <div class="banner-info">
-                                                        <h3 class="title">
-                                                            <strong>Shop now</strong> to find savings on everything you
-                                                            need
-                                                            <br> for the big game.
-                                                        </h3>
-                                                    </div>
-                                                    <!-- /.banner-info -->
-                                                    <span class="banner-action button">Xem thêm</span>
-                                                </div>
-                                                <!-- /.caption -->
-                                            </div>
-                                            <!-- /.banner-bg -->
-                                        </a>
-                                    </div>
-                                    <!-- /.banner -->
-                                    <div class="banner banner-short text-in-left">
-                                        <a href="#">
-                                            <div style="background-size: cover; background-position: center center; background-image: url( {{asset('samfan/assets/images/banner/3-3.jpg')}}); height: 259px;"
-                                                class="banner-bg">
-                                                <div class="caption">
-                                                    <div class="banner-info">
-                                                        <h3 class="title">
-                                                            <strong>1000 mAh</strong>
-                                                            <br> Power Bank Pro.
-                                                        </h3>
-                                                    </div>
-                                                    <!-- /.banner-info -->
-                                                    <span class="price">Chỉ từ 159.000 đ</span>
-                                                    <span class="banner-action button">Mua ngay</span>
-                                                </div>
-                                                <!-- /.caption -->
-                                            </div>
-                                            <!-- /.banner-bg -->
-                                        </a>
-                                    </div>
-                                    <!-- /.banner -->
-                                </div>
-                                <!-- /.row -->
-                            </div>
-                            
                             <div class="features-list">
                                 <div class="features">
                                     <div class="feature">

@@ -43,6 +43,7 @@ Route::get('/tim-kiem-tin-tuc', [App\Http\Controllers\PostController::class, 'se
 Route::get('/tin-tuc/{alias}', [App\Http\Controllers\PostController::class, 'detail'])->name('post.detail');
 Route::get('/crawl', [App\Http\Controllers\ProductController::class, 'crawl'])->name('product.crawl');
 Route::get('/getPrice', [App\Http\Controllers\ProductController::class, 'getPrice'])->name('getPrice');
+Route::get('/getThumb', [App\Http\Controllers\ProductController::class, 'getThumb'])->name('getThumb');
 Route::get('/addtocart', [App\Http\Controllers\ProductController::class, 'addtocart'])->name('addtocart');
 Route::get('/cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('cart');
 Route::get('/gio-hang', [App\Http\Controllers\ProductController::class, 'cartIndex'])->name('cart.index');

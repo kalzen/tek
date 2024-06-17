@@ -23,6 +23,25 @@ $('.getprice').click(function(){
         }
     });
 });
+$('.getThumb').click(function(){
+    $(this).closest('div').children().removeClass('active');
+    $(this).addClass('active');
+    var package=$(this).data('package');
+    var url_get = $('#getthumb_url').val();
+    var code = String($(this).data('code'));
+    var url_data = url_get+"?package="+package+"&value="+code;
+    $.ajax({
+        type: 'GET', //THIS NEEDS TO BE GET
+        url: url_data,
+        dataType: 'json',
+        success: function (data) {
+            $('#thumbpack-' + package).attr('src', data);
+            //console.log($(this).closest('.media').html());
+        },error:function(){ 
+             //console.log(data);
+        }
+    });
+});
 $('#buynow').click(function(e){
     e.preventDefault();
     console.log('ok');
@@ -170,4 +189,12 @@ $(document).ready(function() {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
       };
+    $('.filter-product').on('change', function(){
+        $('#filter').submit();
+    });
+    $('.show-table-full').click(function(e){
+        e.preventDefault();
+        $('#spec-detail tbody').addClass('show');
+        $(this).hide();
+    });
 });
