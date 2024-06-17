@@ -7,35 +7,29 @@
                         <main id="main" class="site-main">
                             <div class="home-v1-slider home-slider">
                                 <div class="slider-1"
-                                    style="background-image: url(assets/images/slider/home-v1-background.jpg);">
-                                    <img src="{{asset('samfan/assets/images/slider/home-v1-img-1.png')}}" alt="">
+                                    style="background:url(https://images.samsung.com/is/image/samsung/assets/vn/home/0519/2024_Home_Main_KV_Neo_QLED_8K_PC_1440x640.jpg) no-repeat; background-cover: cover;">
+                                    <img src="https://images.samsung.com/is/image/samsung/assets/vn/home/0519/2024_Home_Main_KV_Neo_QLED_8K_PC_1440x640.jpg" alt="">
                                     <div class="caption">
-                                        <div class="title">Turn. Click. Expand. Smart modular design simplifies adding
-                                            storage for growing media.</div>
-                                        <div class="sub-title">Powerful Six Core processor, vibrant 4KUHD display output
-                                            and fast SSD elegantly cased in a soft alloy design.</div>
-                                        <div class="button">Get Yours now
+                                        <div class="title"><h3 style="color: #fff"> Samsung AI TV đỉnh cao</h3></div>
+                                        <div class="sub-title" style="color: #fff">AI toàn năng - Thăng hạng toàn diện trải nghiệm bóng đá </div>
+                                        <div class="button">Tìm hiểu thêm
                                             <i class="tm tm-long-arrow-right"></i>
                                         </div>
-                                        <div class="bottom-caption">Free shipping on US Terority</div>
+                                        <div class="bottom-caption" style="color: #fff"></div>
                                     </div>
                                 </div>
                                 <!-- .slider-1 -->
-                                <div class="slider-1 slider-2"
-                                    style="background-image: url(assets/images/slider/home-v1-background.jpg);">
-                                    <img src="{{asset('samfan/assets/images/slider/home-v1-img-2.png')}}" alt="">
+                                <div class="slider-1 slider-2" style="background: url(https://images.samsung.com/is/image/samsung/assets/vn/home/2024/1440x640_0610.jpg); background-cover: cover;">
+                                    <img src="https://images.samsung.com/is/image/samsung/assets/vn/home/2024/1440x640_0610.jpg" alt=""> 
                                     <div class="caption">
-                                        <div class="title">The new-tech gift you
-                                            <br> are wishing for is
-                                            <br> right here
+                                        <div class="title">Deal đổ bộ<br>Cháy trọn Euro
                                         </div>
-                                        <div class="sub-title">Big screens in incredibly slim designs
-                                            <br>that in your hand.
+                                        <div class="sub-title">Ưu đãi đến <b>50%</b>, kèm voucher giảm giá đến <b>2</b> triệu đồng.<br>Áp dụng từ 01.06 - 31.07.2024
                                         </div>
-                                        <div class="button">Browse now
+                                        <div class="button"><a href="#">Mua ngay</a>
                                             <i class="tm tm-long-arrow-right"></i>
                                         </div>
-                                        <div class="bottom-caption">Free shipping on US Terority </div>
+                                       <!-- <div class="bottom-caption">Free shipping on US Terority </div>-->
                                     </div>
                                 </div>
                                 <!-- .slider-2 -->

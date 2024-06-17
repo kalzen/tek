@@ -78,7 +78,7 @@
                                 <div id="customer_details" class="col2-set">
                                     <div class="col-1">
                                         <div class="woocommerce-billing-fields">
-                                            <h3>Billing Details</h3>
+                                            <h3>Thông tin của bạn</h3>
                                             <div class="woocommerce-billing-fields__field-wrapper-outer">
                                                 <div class="woocommerce-billing-fields__field-wrapper">
                                                     <p id="billing_first_name_field"
@@ -99,15 +99,6 @@
                                                         <input type="text" value="" placeholder="Street address"
                                                             id="billing_address_1" name="billing_address_1"
                                                             class="input-text ">
-                                                    </p>
-                                                    <p id="billing_postcode_field"
-                                                        class="form-row form-row-wide address-field validate-postcode validate-required"
-                                                        data-o_class="form-row form-row form-row-last address-field validate-required validate-postcode">
-                                                        <label class="" for="billing_postcode">Postcode / ZIP
-                                                            <abbr title="required" class="required">*</abbr>
-                                                        </label>
-                                                        <input type="text" value="" placeholder="" id="billing_postcode"
-                                                            name="billing_postcode" class="input-text ">
                                                     </p>
                                                     <p id="billing_phone_field"
                                                         class="form-row form-row-last validate-required validate-phone">
