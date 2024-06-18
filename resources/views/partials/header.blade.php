@@ -66,20 +66,20 @@
                     </ul>
                 </div>
                 <!-- .departments-menu -->
-                <form class="navbar-search" method="post" action="#">
+                <form class="navbar-search" method="get" action="{{route('product.search')}}">
                     @csrf
-                    <label class="sr-only screen-reader-text" for="search">Search for:</label>
+                    <label class="sr-only screen-reader-text" for="search">Tìm kiếm:</label>
                     <div class="input-group">
                         <input type="text" id="search" class="form-control search-field product-search-field" dir="ltr"
-                            value="" name="s" placeholder="Search for products" />
-                        <div class="input-group-addon search-categories">
+                            value="" name="s" placeholder="Tìm kiếm sản phẩm" />
+                      <!--  <div class="input-group-addon search-categories">
                             <select name='category_id' id='product_cat' class='postform resizeselect'>
                                 <option value='0' selected='selected'>Tất cả sản phẩm</option>
                                 @foreach ($shared_categories as $cat)
                                     <option class="level-0" value="{{$cat->id}}">{{$cat->name}}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> -->
                         <!-- .input-group-addon -->
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-primary">
@@ -207,11 +207,12 @@
                     <!-- .handheld-navigation -->
                     <div class="site-search">
                         <div class="widget woocommerce widget_product_search">
-                            <form role="search" method="get" class="woocommerce-product-search" action="#">
+                            <form role="search" method="GET" class="woocommerce-product-search" action="{{route('product.search')}}">
+                                @csrf
                                 <label class="screen-reader-text" for="woocommerce-product-search-field-0">Tìm
                                     kiếm:</label>
                                 <input type="search" id="woocommerce-product-search-field-0" class="search-field"
-                                    placeholder="Search products&hellip;" value="" name="s" />
+                                    placeholder="Tìm kiếm sản phẩm" value="" name="s" />
                                 <input type="submit" value="Search" />
                                 <input type="hidden" name="post_type" value="product" />
                             </form>

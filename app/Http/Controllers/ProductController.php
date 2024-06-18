@@ -588,6 +588,12 @@ class ProductController extends Controller
             ], 500);
         }
     }
+    public function searchByKeyword(Request $request)
+    {
+        $query = Package::where('name','like','%'.$request->s.'%');
+        $packages = $query->paginate();
+        return view('product.search', compact('packages', 'request'));
+    }
     public function updateCartItem(Request $request)
     {
         try {
