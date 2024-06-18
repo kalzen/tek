@@ -17,6 +17,9 @@ $('.getprice').click(function(){
             $('#package-' + package).html(data.price);
             $('#cart-'+package).data('model', data.model);
             $('#buynow').data('model', data.model);
+            $('#spec-detail').html(data.spec);
+            $('.sku').html(data.model);
+            $('.show-table-full').show();
             console.log(data);
         },error:function(){ 
              //console.log(data);

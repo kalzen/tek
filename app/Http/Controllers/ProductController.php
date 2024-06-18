@@ -362,7 +362,7 @@ class ProductController extends Controller
     public function getPrice(Request $request)
     {
         $package = Package::find($request->package);
-        
+        $model_code = '';
         foreach (json_decode($package->json_data)->modelList as $model)
         {
             foreach ($model->fmyChipList as $chips)
@@ -379,16 +379,41 @@ class ProductController extends Controller
                             {
                                 $price_html = 'Liên hệ';
                             }
-                        $data = array(
-                            'model' => $model->modelCode,
-                            'price' => $price_html
-                        );
-                    return response()->json($data);
+                            $model_code = $model->modelCode;
+                        
+                    
                     }
                 }
             }
+            if ($model_code)
+            {
+            $html = '<tbody>';
+            $client = new Client();
+            $content = $client->get('https://searchapi.samsung.com/v6/front/b2c/product/spec/detail?siteCode=vn&modelList='.$model_code);
+            $json = json_decode($content->getBody(), true);
+            $model_list =  $json['response']['resultData']['modelList'];
+            
+            
+                    $specs = $model_list[0]['spec']['specItems'];
+                    //dd($specs);
+                    foreach ($specs as $item )
+                    {
+                        $html .='<tr><td class="text-center" style="font-weight: 500" colspan="2">'.$item['attrName'].'</td></tr>';
+                        if (is_array($item['attrs']) || is_object($item['attrs']))
+                        foreach ($item['attrs'] as $subitem)
+                        {
+                            $html .='<tr><td>'.$subitem['attrName'].'</td><td>'.$subitem['attrValue'].'</td></tr>';
+                        }
+                    }
+            $html .= '</tbody>';
+                }
         }
-        return false;
+        $data = array(
+            'model' => $model_code,
+            'price' => $price_html,
+            'spec' => $html
+        );
+        return response()->json($data);
     }
     public function getThumb(Request $request)
     {
